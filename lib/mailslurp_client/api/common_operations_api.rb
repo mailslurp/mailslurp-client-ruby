@@ -171,5 +171,56 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Wait for or fetch the email with a given index in the inbox specified
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :index Zero based index of the email to wait for
+    # @return [Email]
+    def wait_for_nth_email(opts = {})
+      data, _status_code, _headers = wait_for_nth_email_with_http_info(opts)
+      data
+    end
+
+    # Wait for or fetch the email with a given index in the inbox specified
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :index Zero based index of the email to wait for
+    # @return [Array<(Email, Fixnum, Hash)>] Email data, response status code and response headers
+    def wait_for_nth_email_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.wait_for_nth_email ...'
+      end
+      # resource path
+      local_var_path = '/waitForNthEmail'
+
+      # query parameters
+      query_params = {}
+      query_params[:'inboxId'] = opts[:'inbox_id'] if !opts[:'inbox_id'].nil?
+      query_params[:'index'] = opts[:'index'] if !opts[:'index'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Email')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#wait_for_nth_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
   end
 end
