@@ -227,7 +227,7 @@ module MailSlurpClient
     # Attach a WebHook URL to an inbox
     # Get notified whenever an inbox receives an email via a WebHook URL. An emailID will be posted to this URL every time an email is received for this inbox. The URL must be publicly reachable by the MailSlurp server. You can provide basicAuth values if you wish to secure this endpoint.
     # @param inbox_id inboxId
-    # @param create_webhook_options options
+    # @param create_webhook_options webhookOptions
     # @param [Hash] opts the optional parameters
     # @return [Webhook]
     def create_webhook(inbox_id, create_webhook_options, opts = {})
@@ -238,7 +238,7 @@ module MailSlurpClient
     # Attach a WebHook URL to an inbox
     # Get notified whenever an inbox receives an email via a WebHook URL. An emailID will be posted to this URL every time an email is received for this inbox. The URL must be publicly reachable by the MailSlurp server. You can provide basicAuth values if you wish to secure this endpoint.
     # @param inbox_id inboxId
-    # @param create_webhook_options options
+    # @param create_webhook_options webhookOptions
     # @param [Hash] opts the optional parameters
     # @return [Array<(Webhook, Fixnum, Hash)>] Webhook data, response status code and response headers
     def create_webhook_with_http_info(inbox_id, create_webhook_options, opts = {})

@@ -245,7 +245,7 @@ end
 
 api_instance = MailSlurpClient::ExtraOperationsApi.new
 inbox_id = 'inbox_id_example' # String | inboxId
-create_webhook_options = MailSlurpClient::CreateWebhookOptions.new # CreateWebhookOptions | options
+create_webhook_options = MailSlurpClient::CreateWebhookOptions.new # CreateWebhookOptions | webhookOptions
 
 begin
   #Attach a WebHook URL to an inbox
@@ -261,7 +261,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **inbox_id** | [**String**](.md)| inboxId | 
- **create_webhook_options** | [**CreateWebhookOptions**](CreateWebhookOptions.md)| options | 
+ **create_webhook_options** | [**CreateWebhookOptions**](CreateWebhookOptions.md)| webhookOptions | 
 
 ### Return type
 
