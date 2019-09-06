@@ -66,6 +66,159 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Delete an email
+    # Deletes an email
+    # @param email_id emailId
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_email(email_id, opts = {})
+      delete_email_with_http_info(email_id, opts)
+      nil
+    end
+
+    # Delete an email
+    # Deletes an email
+    # @param email_id emailId
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def delete_email_with_http_info(email_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.delete_email ...'
+      end
+      # verify the required parameter 'email_id' is set
+      if @api_client.config.client_side_validation && email_id.nil?
+        fail ArgumentError, "Missing the required parameter 'email_id' when calling CommonOperationsApi.delete_email"
+      end
+      # resource path
+      local_var_path = '/deleteEmail'
+
+      # query parameters
+      query_params = {}
+      query_params[:'emailId'] = email_id
+
+      # header parameters
+      header_params = {}
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#delete_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete email address and its emails
+    # Deletes an inbox
+    # @param inbox_id inboxId
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_email_address(inbox_id, opts = {})
+      delete_email_address_with_http_info(inbox_id, opts)
+      nil
+    end
+
+    # Delete email address and its emails
+    # Deletes an inbox
+    # @param inbox_id inboxId
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def delete_email_address_with_http_info(inbox_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.delete_email_address ...'
+      end
+      # verify the required parameter 'inbox_id' is set
+      if @api_client.config.client_side_validation && inbox_id.nil?
+        fail ArgumentError, "Missing the required parameter 'inbox_id' when calling CommonOperationsApi.delete_email_address"
+      end
+      # resource path
+      local_var_path = '/deleteEmailAddress'
+
+      # query parameters
+      query_params = {}
+      query_params[:'inboxId'] = inbox_id
+
+      # header parameters
+      header_params = {}
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#delete_email_address\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete all emails in an inbox
+    # Deletes all emails
+    # @param inbox_id inboxId
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def empty_inbox(inbox_id, opts = {})
+      empty_inbox_with_http_info(inbox_id, opts)
+      nil
+    end
+
+    # Delete all emails in an inbox
+    # Deletes all emails
+    # @param inbox_id inboxId
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def empty_inbox_with_http_info(inbox_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.empty_inbox ...'
+      end
+      # verify the required parameter 'inbox_id' is set
+      if @api_client.config.client_side_validation && inbox_id.nil?
+        fail ArgumentError, "Missing the required parameter 'inbox_id' when calling CommonOperationsApi.empty_inbox"
+      end
+      # resource path
+      local_var_path = '/emptyInbox'
+
+      # query parameters
+      query_params = {}
+      query_params[:'inboxId'] = inbox_id
+
+      # header parameters
+      header_params = {}
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#empty_inbox\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Send an email from a random email address
     # To specify an email address first create an inbox and use that with the other send email methods
     # @param send_email_options sendEmailOptions
@@ -118,11 +271,67 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Wait for and return count number of emails 
+    # Will only wait if count is greater that the found emails in given inbox.If you need to wait for an email for a non-empty inbox see the other receive methods.
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :count Number of emails to wait for. Must be greater that 1
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
+    # @return [Array<EmailPreview>]
+    def wait_for_email_count(opts = {})
+      data, _status_code, _headers = wait_for_email_count_with_http_info(opts)
+      data
+    end
+
+    # Wait for and return count number of emails 
+    # Will only wait if count is greater that the found emails in given inbox.If you need to wait for an email for a non-empty inbox see the other receive methods.
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :count Number of emails to wait for. Must be greater that 1
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
+    # @return [Array<(Array<EmailPreview>, Fixnum, Hash)>] Array<EmailPreview> data, response status code and response headers
+    def wait_for_email_count_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.wait_for_email_count ...'
+      end
+      # resource path
+      local_var_path = '/waitForEmailCount'
+
+      # query parameters
+      query_params = {}
+      query_params[:'count'] = opts[:'count'] if !opts[:'count'].nil?
+      query_params[:'inboxId'] = opts[:'inbox_id'] if !opts[:'inbox_id'].nil?
+      query_params[:'timeout'] = opts[:'timeout'] if !opts[:'timeout'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Array<EmailPreview>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#wait_for_email_count\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Fetch inbox's latest email or if empty wait for email to arrive
     # Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox see the other receive methods.
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :inbox_email_address Email address of the inbox we are fetching emails from
     # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
     # @return [Email]
     def wait_for_latest_email(opts = {})
       data, _status_code, _headers = wait_for_latest_email_with_http_info(opts)
@@ -132,20 +341,20 @@ module MailSlurpClient
     # Fetch inbox&#39;s latest email or if empty wait for email to arrive
     # Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox see the other receive methods.
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :inbox_email_address Email address of the inbox we are fetching emails from
     # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
     # @return [Array<(Email, Fixnum, Hash)>] Email data, response status code and response headers
     def wait_for_latest_email_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CommonOperationsApi.wait_for_latest_email ...'
       end
       # resource path
-      local_var_path = '/fetchLatestEmail'
+      local_var_path = '/waitForLatestEmail'
 
       # query parameters
       query_params = {}
-      query_params[:'inboxEmailAddress'] = opts[:'inbox_email_address'] if !opts[:'inbox_email_address'].nil?
       query_params[:'inboxId'] = opts[:'inbox_id'] if !opts[:'inbox_id'].nil?
+      query_params[:'timeout'] = opts[:'timeout'] if !opts[:'timeout'].nil?
 
       # header parameters
       header_params = {}
@@ -171,10 +380,75 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Wait or return list of emails that match simple matching patterns
+    # Results must also meet provided count. Match options allow simple CONTAINS or EQUALS filtering on SUBJECT, TO, BCC, CC, and FROM.
+    # @param match_options matchOptions
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :count Number of emails to wait for. Must be greater that 1
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
+    # @return [Array<EmailPreview>]
+    def wait_for_matching_email(match_options, opts = {})
+      data, _status_code, _headers = wait_for_matching_email_with_http_info(match_options, opts)
+      data
+    end
+
+    # Wait or return list of emails that match simple matching patterns
+    # Results must also meet provided count. Match options allow simple CONTAINS or EQUALS filtering on SUBJECT, TO, BCC, CC, and FROM.
+    # @param match_options matchOptions
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :count Number of emails to wait for. Must be greater that 1
+    # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
+    # @option opts [Integer] :timeout Max milliseconds to wait
+    # @return [Array<(Array<EmailPreview>, Fixnum, Hash)>] Array<EmailPreview> data, response status code and response headers
+    def wait_for_matching_email_with_http_info(match_options, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: CommonOperationsApi.wait_for_matching_email ...'
+      end
+      # verify the required parameter 'match_options' is set
+      if @api_client.config.client_side_validation && match_options.nil?
+        fail ArgumentError, "Missing the required parameter 'match_options' when calling CommonOperationsApi.wait_for_matching_email"
+      end
+      # resource path
+      local_var_path = '/waitForMatchingEmails'
+
+      # query parameters
+      query_params = {}
+      query_params[:'count'] = opts[:'count'] if !opts[:'count'].nil?
+      query_params[:'inboxId'] = opts[:'inbox_id'] if !opts[:'inbox_id'].nil?
+      query_params[:'timeout'] = opts[:'timeout'] if !opts[:'timeout'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(match_options)
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Array<EmailPreview>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: CommonOperationsApi#wait_for_matching_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Wait for or fetch the email with a given index in the inbox specified
     # @param [Hash] opts the optional parameters
     # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
     # @option opts [Integer] :index Zero based index of the email to wait for
+    # @option opts [Integer] :timeout Max milliseconds to wait
     # @return [Email]
     def wait_for_nth_email(opts = {})
       data, _status_code, _headers = wait_for_nth_email_with_http_info(opts)
@@ -185,6 +459,7 @@ module MailSlurpClient
     # @param [Hash] opts the optional parameters
     # @option opts [String] :inbox_id Id of the inbox we are fetching emails from
     # @option opts [Integer] :index Zero based index of the email to wait for
+    # @option opts [Integer] :timeout Max milliseconds to wait
     # @return [Array<(Email, Fixnum, Hash)>] Email data, response status code and response headers
     def wait_for_nth_email_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -197,6 +472,7 @@ module MailSlurpClient
       query_params = {}
       query_params[:'inboxId'] = opts[:'inbox_id'] if !opts[:'inbox_id'].nil?
       query_params[:'index'] = opts[:'index'] if !opts[:'index'].nil?
+      query_params[:'timeout'] = opts[:'timeout'] if !opts[:'timeout'].nil?
 
       # header parameters
       header_params = {}

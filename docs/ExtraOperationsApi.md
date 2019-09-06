@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**bulk_send_emails**](ExtraOperationsApi.md#bulk_send_emails) | **POST** /bulk/send | Bulk Send Emails
 [**create_inbox**](ExtraOperationsApi.md#create_inbox) | **POST** /inboxes | Create an Inbox (email address)
 [**create_webhook**](ExtraOperationsApi.md#create_webhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
-[**delete_email**](ExtraOperationsApi.md#delete_email) | **DELETE** /emails/{emailId} | Delete Email
+[**delete_email1**](ExtraOperationsApi.md#delete_email1) | **DELETE** /emails/{emailId} | Delete Email
 [**delete_inbox**](ExtraOperationsApi.md#delete_inbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**delete_webhook**](ExtraOperationsApi.md#delete_webhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**download_attachment**](ExtraOperationsApi.md#download_attachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
@@ -278,8 +278,8 @@ Name | Type | Description  | Notes
 
 
 
-# **delete_email**
-> delete_email(email_id)
+# **delete_email1**
+> delete_email1(email_id)
 
 Delete Email
 
@@ -302,9 +302,9 @@ email_id = 'email_id_example' # String | emailId
 
 begin
   #Delete Email
-  api_instance.delete_email(email_id)
+  api_instance.delete_email1(email_id)
 rescue MailSlurpClient::ApiError => e
-  puts "Exception when calling ExtraOperationsApi->delete_email: #{e}"
+  puts "Exception when calling ExtraOperationsApi->delete_email1: #{e}"
 end
 ```
 

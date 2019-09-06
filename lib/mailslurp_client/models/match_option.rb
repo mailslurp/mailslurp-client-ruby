@@ -13,41 +13,53 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Preview of an email message. For full message call the message endpoint with a given message id.
-  class EmailPreview
-    attr_accessor :bcc
+  class MatchOption
+    # The email property to match on. One of SUBJECT, TO, BCC, CC or FROM
+    attr_accessor :field
 
-    attr_accessor :cc
+    # What criteria to apply. CONTAIN or EQUAL. Note CONTAIN is recommended due to some SMTP servers adding new lines
+    attr_accessor :should
 
-    attr_accessor :created
+    # The value to compare to the field using EQUAL or CONTAIN
+    attr_accessor :value
 
-    attr_accessor :id
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
 
-    attr_accessor :subject
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
 
-    attr_accessor :to
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'bcc' => :'bcc',
-        :'cc' => :'cc',
-        :'created' => :'created',
-        :'id' => :'id',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'field' => :'field',
+        :'should' => :'should',
+        :'value' => :'value'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'bcc' => :'Array<String>',
-        :'cc' => :'Array<String>',
-        :'created' => :'DateTime',
-        :'id' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'field' => :'String',
+        :'should' => :'String',
+        :'value' => :'String'
       }
     end
 
@@ -59,34 +71,16 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
+      if attributes.has_key?(:'field')
+        self.field = attributes[:'field']
       end
 
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
+      if attributes.has_key?(:'should')
+        self.should = attributes[:'should']
       end
 
-      if attributes.has_key?(:'created')
-        self.created = attributes[:'created']
-      end
-
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
-        end
+      if attributes.has_key?(:'value')
+        self.value = attributes[:'value']
       end
     end
 
@@ -94,28 +88,37 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @created.nil?
-        invalid_properties.push('invalid value for "created", created cannot be nil.')
-      end
-
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @created.nil?
-      return false if @id.nil?
-      return false if @to.nil?
+      field_validator = EnumAttributeValidator.new('String', ['SUBJECT', 'TO', 'BCC', 'CC', 'FROM'])
+      return false unless field_validator.valid?(@field)
+      should_validator = EnumAttributeValidator.new('String', ['CONTAIN', 'EQUAL'])
+      return false unless should_validator.valid?(@should)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] field Object to be assigned
+    def field=(field)
+      validator = EnumAttributeValidator.new('String', ['SUBJECT', 'TO', 'BCC', 'CC', 'FROM'])
+      unless validator.valid?(field)
+        fail ArgumentError, 'invalid value for "field", must be one of #{validator.allowable_values}.'
+      end
+      @field = field
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] should Object to be assigned
+    def should=(should)
+      validator = EnumAttributeValidator.new('String', ['CONTAIN', 'EQUAL'])
+      unless validator.valid?(should)
+        fail ArgumentError, 'invalid value for "should", must be one of #{validator.allowable_values}.'
+      end
+      @should = should
     end
 
     # Checks equality by comparing each attribute.
@@ -123,12 +126,9 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          bcc == o.bcc &&
-          cc == o.cc &&
-          created == o.created &&
-          id == o.id &&
-          subject == o.subject &&
-          to == o.to
+          field == o.field &&
+          should == o.should &&
+          value == o.value
     end
 
     # @see the `==` method
@@ -140,7 +140,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bcc, cc, created, id, subject, to].hash
+      [field, should, value].hash
     end
 
     # Builds the object from hash

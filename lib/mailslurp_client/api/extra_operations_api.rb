@@ -290,8 +290,8 @@ module MailSlurpClient
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
     # @return [nil]
-    def delete_email(email_id, opts = {})
-      delete_email_with_http_info(email_id, opts)
+    def delete_email1(email_id, opts = {})
+      delete_email1_with_http_info(email_id, opts)
       nil
     end
 
@@ -300,13 +300,13 @@ module MailSlurpClient
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
-    def delete_email_with_http_info(email_id, opts = {})
+    def delete_email1_with_http_info(email_id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.delete_email ...'
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.delete_email1 ...'
       end
       # verify the required parameter 'email_id' is set
       if @api_client.config.client_side_validation && email_id.nil?
-        fail ArgumentError, "Missing the required parameter 'email_id' when calling ExtraOperationsApi.delete_email"
+        fail ArgumentError, "Missing the required parameter 'email_id' when calling ExtraOperationsApi.delete_email1"
       end
       # resource path
       local_var_path = '/emails/{emailId}'.sub('{' + 'emailId' + '}', email_id.to_s)
@@ -330,7 +330,7 @@ module MailSlurpClient
         :body => post_body,
         :auth_names => auth_names)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ExtraOperationsApi#delete_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#delete_email1\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

@@ -13,41 +13,22 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Preview of an email message. For full message call the message endpoint with a given message id.
-  class EmailPreview
-    attr_accessor :bcc
-
-    attr_accessor :cc
-
-    attr_accessor :created
-
-    attr_accessor :id
-
-    attr_accessor :subject
-
-    attr_accessor :to
+  # Optional filter for matching emails based on fields
+  class MatchOptions
+    # 1 or more match options. Options are additive so if one does not match the email is excluded from results
+    attr_accessor :matches
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'bcc' => :'bcc',
-        :'cc' => :'cc',
-        :'created' => :'created',
-        :'id' => :'id',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'matches' => :'matches'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'bcc' => :'Array<String>',
-        :'cc' => :'Array<String>',
-        :'created' => :'DateTime',
-        :'id' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'matches' => :'Array<MatchOption>'
       }
     end
 
@@ -59,33 +40,9 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
-      end
-
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
-      end
-
-      if attributes.has_key?(:'created')
-        self.created = attributes[:'created']
-      end
-
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
+      if attributes.has_key?(:'matches')
+        if (value = attributes[:'matches']).is_a?(Array)
+          self.matches = value
         end
       end
     end
@@ -94,27 +51,12 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @created.nil?
-        invalid_properties.push('invalid value for "created", created cannot be nil.')
-      end
-
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @created.nil?
-      return false if @id.nil?
-      return false if @to.nil?
       true
     end
 
@@ -123,12 +65,7 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          bcc == o.bcc &&
-          cc == o.cc &&
-          created == o.created &&
-          id == o.id &&
-          subject == o.subject &&
-          to == o.to
+          matches == o.matches
     end
 
     # @see the `==` method
@@ -140,7 +77,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bcc, cc, created, id, subject, to].hash
+      [matches].hash
     end
 
     # Builds the object from hash

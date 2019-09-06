@@ -24,6 +24,8 @@ require 'mailslurp_client/models/email'
 require 'mailslurp_client/models/email_analysis'
 require 'mailslurp_client/models/email_preview'
 require 'mailslurp_client/models/inbox'
+require 'mailslurp_client/models/match_option'
+require 'mailslurp_client/models/match_options'
 require 'mailslurp_client/models/send_email_options'
 require 'mailslurp_client/models/webhook'
 
