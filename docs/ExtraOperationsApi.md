@@ -856,7 +856,7 @@ nil (empty response body)
 
 
 # **upload_attachment**
-> String upload_attachment(upload_attachment_options)
+> Array&lt;String&gt; upload_attachment(upload_attachment_options)
 
 Upload an attachment for sending
 
@@ -894,7 +894,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+**Array&lt;String&gt;**
 
 ### Authorization
 
@@ -908,7 +908,7 @@ Name | Type | Description  | Notes
 
 
 # **upload_multipart_form**
-> String upload_multipart_form(file, opts)
+> Array&lt;String&gt; upload_multipart_form(file, opts)
 
 Upload an attachment for sending using Multipart Form
 
@@ -952,7 +952,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**String**
+**Array&lt;String&gt;**
 
 ### Authorization
 

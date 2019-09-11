@@ -879,7 +879,7 @@ module MailSlurpClient
     # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
     # @param upload_attachment_options uploadOptions
     # @param [Hash] opts the optional parameters
-    # @return [String]
+    # @return [Array<String>]
     def upload_attachment(upload_attachment_options, opts = {})
       data, _status_code, _headers = upload_attachment_with_http_info(upload_attachment_options, opts)
       data
@@ -889,7 +889,7 @@ module MailSlurpClient
     # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
     # @param upload_attachment_options uploadOptions
     # @param [Hash] opts the optional parameters
-    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    # @return [Array<(Array<String>, Fixnum, Hash)>] Array<String> data, response status code and response headers
     def upload_attachment_with_http_info(upload_attachment_options, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.upload_attachment ...'
@@ -923,7 +923,7 @@ module MailSlurpClient
         :form_params => form_params,
         :body => post_body,
         :auth_names => auth_names,
-        :return_type => 'String')
+        :return_type => 'Array<String>')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ExtraOperationsApi#upload_attachment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
@@ -936,7 +936,7 @@ module MailSlurpClient
     # @param [Hash] opts the optional parameters
     # @option opts [String] :content_type contentType
     # @option opts [String] :filename filename
-    # @return [String]
+    # @return [Array<String>]
     def upload_multipart_form(file, opts = {})
       data, _status_code, _headers = upload_multipart_form_with_http_info(file, opts)
       data
@@ -948,7 +948,7 @@ module MailSlurpClient
     # @param [Hash] opts the optional parameters
     # @option opts [String] :content_type contentType
     # @option opts [String] :filename filename
-    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    # @return [Array<(Array<String>, Fixnum, Hash)>] Array<String> data, response status code and response headers
     def upload_multipart_form_with_http_info(file, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.upload_multipart_form ...'
@@ -985,7 +985,7 @@ module MailSlurpClient
         :form_params => form_params,
         :body => post_body,
         :auth_names => auth_names,
-        :return_type => 'String')
+        :return_type => 'Array<String>')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ExtraOperationsApi#upload_multipart_form\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
