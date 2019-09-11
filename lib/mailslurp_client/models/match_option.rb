@@ -13,66 +13,53 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Options for sending an email message from an inbox
-  class SendEmailOptions
-    # Optional list of attachment IDs to send with this email
-    attr_accessor :attachments
+  class MatchOption
+    # The email property to match on. One of SUBJECT, TO, BCC, CC or FROM
+    attr_accessor :field
 
-    # Optional list of bcc destination email addresses
-    attr_accessor :bcc
+    # What criteria to apply. CONTAIN or EQUAL. Note CONTAIN is recommended due to some SMTP servers adding new lines
+    attr_accessor :should
 
-    # Contents of email
-    attr_accessor :body
+    # The value to compare to the field using EQUAL or CONTAIN
+    attr_accessor :value
 
-    # Optional list of cc destination email addresses
-    attr_accessor :cc
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
 
-    # Optional charset
-    attr_accessor :charset
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
 
-    # Optional from address. If not set source inbox address will be used
-    attr_accessor :from
-
-    attr_accessor :html
-
-    # Optional replyTo header
-    attr_accessor :reply_to
-
-    # Optional email subject line
-    attr_accessor :subject
-
-    # List of destination email addresses. Even single recipients must be in array form.
-    attr_accessor :to
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'attachments' => :'attachments',
-        :'bcc' => :'bcc',
-        :'body' => :'body',
-        :'cc' => :'cc',
-        :'charset' => :'charset',
-        :'from' => :'from',
-        :'html' => :'html',
-        :'reply_to' => :'replyTo',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'field' => :'field',
+        :'should' => :'should',
+        :'value' => :'value'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'attachments' => :'Array<String>',
-        :'bcc' => :'Array<String>',
-        :'body' => :'String',
-        :'cc' => :'Array<String>',
-        :'charset' => :'String',
-        :'from' => :'String',
-        :'html' => :'BOOLEAN',
-        :'reply_to' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'field' => :'String',
+        :'should' => :'String',
+        :'value' => :'String'
       }
     end
 
@@ -84,52 +71,16 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'attachments')
-        if (value = attributes[:'attachments']).is_a?(Array)
-          self.attachments = value
-        end
+      if attributes.has_key?(:'field')
+        self.field = attributes[:'field']
       end
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
+      if attributes.has_key?(:'should')
+        self.should = attributes[:'should']
       end
 
-      if attributes.has_key?(:'body')
-        self.body = attributes[:'body']
-      end
-
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
-      end
-
-      if attributes.has_key?(:'charset')
-        self.charset = attributes[:'charset']
-      end
-
-      if attributes.has_key?(:'from')
-        self.from = attributes[:'from']
-      end
-
-      if attributes.has_key?(:'html')
-        self.html = attributes[:'html']
-      end
-
-      if attributes.has_key?(:'replyTo')
-        self.reply_to = attributes[:'replyTo']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
-        end
+      if attributes.has_key?(:'value')
+        self.value = attributes[:'value']
       end
     end
 
@@ -137,18 +88,37 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @to.nil?
+      field_validator = EnumAttributeValidator.new('String', ['SUBJECT', 'TO', 'BCC', 'CC', 'FROM'])
+      return false unless field_validator.valid?(@field)
+      should_validator = EnumAttributeValidator.new('String', ['CONTAIN', 'EQUAL'])
+      return false unless should_validator.valid?(@should)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] field Object to be assigned
+    def field=(field)
+      validator = EnumAttributeValidator.new('String', ['SUBJECT', 'TO', 'BCC', 'CC', 'FROM'])
+      unless validator.valid?(field)
+        fail ArgumentError, 'invalid value for "field", must be one of #{validator.allowable_values}.'
+      end
+      @field = field
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] should Object to be assigned
+    def should=(should)
+      validator = EnumAttributeValidator.new('String', ['CONTAIN', 'EQUAL'])
+      unless validator.valid?(should)
+        fail ArgumentError, 'invalid value for "should", must be one of #{validator.allowable_values}.'
+      end
+      @should = should
     end
 
     # Checks equality by comparing each attribute.
@@ -156,16 +126,9 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          attachments == o.attachments &&
-          bcc == o.bcc &&
-          body == o.body &&
-          cc == o.cc &&
-          charset == o.charset &&
-          from == o.from &&
-          html == o.html &&
-          reply_to == o.reply_to &&
-          subject == o.subject &&
-          to == o.to
+          field == o.field &&
+          should == o.should &&
+          value == o.value
     end
 
     # @see the `==` method
@@ -177,7 +140,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachments, bcc, body, cc, charset, from, html, reply_to, subject, to].hash
+      [field, should, value].hash
     end
 
     # Builds the object from hash

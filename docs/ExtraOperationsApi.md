@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**bulk_send_emails**](ExtraOperationsApi.md#bulk_send_emails) | **POST** /bulk/send | Bulk Send Emails
 [**create_inbox**](ExtraOperationsApi.md#create_inbox) | **POST** /inboxes | Create an Inbox (email address)
 [**create_webhook**](ExtraOperationsApi.md#create_webhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
-[**delete_email**](ExtraOperationsApi.md#delete_email) | **DELETE** /emails/{emailId} | Delete Email
+[**delete_email1**](ExtraOperationsApi.md#delete_email1) | **DELETE** /emails/{emailId} | Delete Email
 [**delete_inbox**](ExtraOperationsApi.md#delete_inbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**delete_webhook**](ExtraOperationsApi.md#delete_webhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**download_attachment**](ExtraOperationsApi.md#download_attachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
@@ -20,6 +20,8 @@ Method | HTTP request | Description
 [**get_raw_email_contents**](ExtraOperationsApi.md#get_raw_email_contents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
 [**get_webhooks**](ExtraOperationsApi.md#get_webhooks) | **GET** /inboxes/{inboxId}/webhooks | Get all WebHooks for an Inbox
 [**send_email**](ExtraOperationsApi.md#send_email) | **POST** /inboxes/{inboxId} | Send Email
+[**upload_attachment**](ExtraOperationsApi.md#upload_attachment) | **POST** /attachments | Upload an attachment for sending
+[**upload_multipart_form**](ExtraOperationsApi.md#upload_multipart_form) | **POST** /attachments/multipart | Upload an attachment for sending using Multipart Form
 
 
 # **bulk_create_inboxes**
@@ -278,8 +280,8 @@ Name | Type | Description  | Notes
 
 
 
-# **delete_email**
-> delete_email(email_id)
+# **delete_email1**
+> delete_email1(email_id)
 
 Delete Email
 
@@ -302,9 +304,9 @@ email_id = 'email_id_example' # String | emailId
 
 begin
   #Delete Email
-  api_instance.delete_email(email_id)
+  api_instance.delete_email1(email_id)
 rescue MailSlurpClient::ApiError => e
-  puts "Exception when calling ExtraOperationsApi->delete_email: #{e}"
+  puts "Exception when calling ExtraOperationsApi->delete_email1: #{e}"
 end
 ```
 
@@ -850,6 +852,116 @@ nil (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
+
+
+
+# **upload_attachment**
+> String upload_attachment(upload_attachment_options)
+
+Upload an attachment for sending
+
+When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+upload_attachment_options = MailSlurpClient::UploadAttachmentOptions.new # UploadAttachmentOptions | uploadOptions
+
+begin
+  #Upload an attachment for sending
+  result = api_instance.upload_attachment(upload_attachment_options)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->upload_attachment: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **upload_attachment_options** | [**UploadAttachmentOptions**](UploadAttachmentOptions.md)| uploadOptions | 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **upload_multipart_form**
+> String upload_multipart_form(file, opts)
+
+Upload an attachment for sending using Multipart Form
+
+When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+file = File.new('/path/to/file') # File | file
+opts = {
+  content_type: 'content_type_example', # String | contentType
+  filename: 'filename_example' # String | filename
+}
+
+begin
+  #Upload an attachment for sending using Multipart Form
+  result = api_instance.upload_multipart_form(file, opts)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->upload_multipart_form: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **File**| file | 
+ **content_type** | **String**| contentType | [optional] 
+ **filename** | **String**| filename | [optional] 
+
+### Return type
+
+**String**
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
 
 
 

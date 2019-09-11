@@ -290,8 +290,8 @@ module MailSlurpClient
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
     # @return [nil]
-    def delete_email(email_id, opts = {})
-      delete_email_with_http_info(email_id, opts)
+    def delete_email1(email_id, opts = {})
+      delete_email1_with_http_info(email_id, opts)
       nil
     end
 
@@ -300,13 +300,13 @@ module MailSlurpClient
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
     # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
-    def delete_email_with_http_info(email_id, opts = {})
+    def delete_email1_with_http_info(email_id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.delete_email ...'
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.delete_email1 ...'
       end
       # verify the required parameter 'email_id' is set
       if @api_client.config.client_side_validation && email_id.nil?
-        fail ArgumentError, "Missing the required parameter 'email_id' when calling ExtraOperationsApi.delete_email"
+        fail ArgumentError, "Missing the required parameter 'email_id' when calling ExtraOperationsApi.delete_email1"
       end
       # resource path
       local_var_path = '/emails/{emailId}'.sub('{' + 'emailId' + '}', email_id.to_s)
@@ -330,7 +330,7 @@ module MailSlurpClient
         :body => post_body,
         :auth_names => auth_names)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: ExtraOperationsApi#delete_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#delete_email1\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -871,6 +871,123 @@ module MailSlurpClient
         :auth_names => auth_names)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ExtraOperationsApi#send_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upload an attachment for sending
+    # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+    # @param upload_attachment_options uploadOptions
+    # @param [Hash] opts the optional parameters
+    # @return [String]
+    def upload_attachment(upload_attachment_options, opts = {})
+      data, _status_code, _headers = upload_attachment_with_http_info(upload_attachment_options, opts)
+      data
+    end
+
+    # Upload an attachment for sending
+    # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+    # @param upload_attachment_options uploadOptions
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    def upload_attachment_with_http_info(upload_attachment_options, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.upload_attachment ...'
+      end
+      # verify the required parameter 'upload_attachment_options' is set
+      if @api_client.config.client_side_validation && upload_attachment_options.nil?
+        fail ArgumentError, "Missing the required parameter 'upload_attachment_options' when calling ExtraOperationsApi.upload_attachment"
+      end
+      # resource path
+      local_var_path = '/attachments'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(upload_attachment_options)
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'String')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#upload_attachment\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Upload an attachment for sending using Multipart Form
+    # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+    # @param file file
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :content_type contentType
+    # @option opts [String] :filename filename
+    # @return [String]
+    def upload_multipart_form(file, opts = {})
+      data, _status_code, _headers = upload_multipart_form_with_http_info(file, opts)
+      data
+    end
+
+    # Upload an attachment for sending using Multipart Form
+    # When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+    # @param file file
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :content_type contentType
+    # @option opts [String] :filename filename
+    # @return [Array<(String, Fixnum, Hash)>] String data, response status code and response headers
+    def upload_multipart_form_with_http_info(file, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.upload_multipart_form ...'
+      end
+      # verify the required parameter 'file' is set
+      if @api_client.config.client_side_validation && file.nil?
+        fail ArgumentError, "Missing the required parameter 'file' when calling ExtraOperationsApi.upload_multipart_form"
+      end
+      # resource path
+      local_var_path = '/attachments/multipart'
+
+      # query parameters
+      query_params = {}
+      query_params[:'contentType'] = opts[:'content_type'] if !opts[:'content_type'].nil?
+      query_params[:'filename'] = opts[:'filename'] if !opts[:'filename'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['multipart/form-data'])
+
+      # form parameters
+      form_params = {}
+      form_params['file'] = file
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'String')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#upload_multipart_form\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

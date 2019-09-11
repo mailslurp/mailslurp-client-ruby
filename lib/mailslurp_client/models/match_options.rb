@@ -13,66 +13,22 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Options for sending an email message from an inbox
-  class SendEmailOptions
-    # Optional list of attachment IDs to send with this email
-    attr_accessor :attachments
-
-    # Optional list of bcc destination email addresses
-    attr_accessor :bcc
-
-    # Contents of email
-    attr_accessor :body
-
-    # Optional list of cc destination email addresses
-    attr_accessor :cc
-
-    # Optional charset
-    attr_accessor :charset
-
-    # Optional from address. If not set source inbox address will be used
-    attr_accessor :from
-
-    attr_accessor :html
-
-    # Optional replyTo header
-    attr_accessor :reply_to
-
-    # Optional email subject line
-    attr_accessor :subject
-
-    # List of destination email addresses. Even single recipients must be in array form.
-    attr_accessor :to
+  # Optional filter for matching emails based on fields
+  class MatchOptions
+    # 1 or more match options. Options are additive so if one does not match the email is excluded from results
+    attr_accessor :matches
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'attachments' => :'attachments',
-        :'bcc' => :'bcc',
-        :'body' => :'body',
-        :'cc' => :'cc',
-        :'charset' => :'charset',
-        :'from' => :'from',
-        :'html' => :'html',
-        :'reply_to' => :'replyTo',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'matches' => :'matches'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'attachments' => :'Array<String>',
-        :'bcc' => :'Array<String>',
-        :'body' => :'String',
-        :'cc' => :'Array<String>',
-        :'charset' => :'String',
-        :'from' => :'String',
-        :'html' => :'BOOLEAN',
-        :'reply_to' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'matches' => :'Array<MatchOption>'
       }
     end
 
@@ -84,51 +40,9 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'attachments')
-        if (value = attributes[:'attachments']).is_a?(Array)
-          self.attachments = value
-        end
-      end
-
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
-      end
-
-      if attributes.has_key?(:'body')
-        self.body = attributes[:'body']
-      end
-
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
-      end
-
-      if attributes.has_key?(:'charset')
-        self.charset = attributes[:'charset']
-      end
-
-      if attributes.has_key?(:'from')
-        self.from = attributes[:'from']
-      end
-
-      if attributes.has_key?(:'html')
-        self.html = attributes[:'html']
-      end
-
-      if attributes.has_key?(:'replyTo')
-        self.reply_to = attributes[:'replyTo']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
+      if attributes.has_key?(:'matches')
+        if (value = attributes[:'matches']).is_a?(Array)
+          self.matches = value
         end
       end
     end
@@ -137,17 +51,12 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @to.nil?
       true
     end
 
@@ -156,16 +65,7 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          attachments == o.attachments &&
-          bcc == o.bcc &&
-          body == o.body &&
-          cc == o.cc &&
-          charset == o.charset &&
-          from == o.from &&
-          html == o.html &&
-          reply_to == o.reply_to &&
-          subject == o.subject &&
-          to == o.to
+          matches == o.matches
     end
 
     # @see the `==` method
@@ -177,7 +77,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachments, bcc, body, cc, charset, from, html, reply_to, subject, to].hash
+      [matches].hash
     end
 
     # Builds the object from hash
