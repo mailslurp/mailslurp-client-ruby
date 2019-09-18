@@ -8,9 +8,11 @@ Name | Type | Description | Notes
 **bcc** | **Array&lt;String&gt;** |  | [optional] 
 **body** | **String** |  | [optional] 
 **cc** | **Array&lt;String&gt;** |  | [optional] 
+**charset** | **String** |  | [optional] 
 **created_at** | **DateTime** |  | 
 **from** | **String** |  | [optional] 
 **headers** | **Hash&lt;String, String&gt;** |  | [optional] 
+**html** | **BOOLEAN** |  | [optional] 
 **id** | **String** |  | 
 **inbox_id** | **String** |  | 
 **raw_url** | **String** |  | [optional] 

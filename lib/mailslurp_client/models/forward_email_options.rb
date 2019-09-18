@@ -13,71 +13,33 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Options for sending an email message from an inbox
-  class SendEmailOptions
-    # Optional list of attachment IDs to send with this email. You must first upload each attachment separately in order to obtain attachment IDs
-    attr_accessor :attachments
+  # Options for forwarding an email
+  class ForwardEmailOptions
+    attr_accessor :to
 
-    # Optional list of bcc destination email addresses
-    attr_accessor :bcc
-
-    # Contents of email. If HTML set isHTML to true. You can use moustache templates here if you provide a templateVariables option
-    attr_accessor :body
-
-    # Optional list of cc destination email addresses
-    attr_accessor :cc
-
-    # Optional charset
-    attr_accessor :charset
-
-    # Optional from address. If not set source inbox address will be used
-    attr_accessor :from
-
-    attr_accessor :html
-
-    # Optional replyTo header
-    attr_accessor :reply_to
-
-    # Optional email subject line
     attr_accessor :subject
 
-    # Optional map of template variables. Will replace moustache syntax variables in subject or body with the associated values
-    attr_accessor :template_variables
+    attr_accessor :cc
 
-    # List of destination email addresses. Even single recipients must be in array form.
-    attr_accessor :to
+    attr_accessor :bcc
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'attachments' => :'attachments',
-        :'bcc' => :'bcc',
-        :'body' => :'body',
-        :'cc' => :'cc',
-        :'charset' => :'charset',
-        :'from' => :'from',
-        :'html' => :'html',
-        :'reply_to' => :'replyTo',
+        :'to' => :'to',
         :'subject' => :'subject',
-        :'template_variables' => :'templateVariables',
-        :'to' => :'to'
+        :'cc' => :'cc',
+        :'bcc' => :'bcc'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'attachments' => :'Array<String>',
-        :'bcc' => :'Array<String>',
-        :'body' => :'String',
-        :'cc' => :'Array<String>',
-        :'charset' => :'String',
-        :'from' => :'String',
-        :'html' => :'BOOLEAN',
-        :'reply_to' => :'String',
+        :'to' => :'Array<String>',
         :'subject' => :'String',
-        :'template_variables' => :'Object',
-        :'to' => :'Array<String>'
+        :'cc' => :'Array<String>',
+        :'bcc' => :'Array<String>'
       }
     end
 
@@ -89,20 +51,14 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'attachments')
-        if (value = attributes[:'attachments']).is_a?(Array)
-          self.attachments = value
+      if attributes.has_key?(:'to')
+        if (value = attributes[:'to']).is_a?(Array)
+          self.to = value
         end
       end
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
-      end
-
-      if attributes.has_key?(:'body')
-        self.body = attributes[:'body']
+      if attributes.has_key?(:'subject')
+        self.subject = attributes[:'subject']
       end
 
       if attributes.has_key?(:'cc')
@@ -111,33 +67,9 @@ module MailSlurpClient
         end
       end
 
-      if attributes.has_key?(:'charset')
-        self.charset = attributes[:'charset']
-      end
-
-      if attributes.has_key?(:'from')
-        self.from = attributes[:'from']
-      end
-
-      if attributes.has_key?(:'html')
-        self.html = attributes[:'html']
-      end
-
-      if attributes.has_key?(:'replyTo')
-        self.reply_to = attributes[:'replyTo']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'templateVariables')
-        self.template_variables = attributes[:'templateVariables']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
+      if attributes.has_key?(:'bcc')
+        if (value = attributes[:'bcc']).is_a?(Array)
+          self.bcc = value
         end
       end
     end
@@ -165,17 +97,10 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          attachments == o.attachments &&
-          bcc == o.bcc &&
-          body == o.body &&
-          cc == o.cc &&
-          charset == o.charset &&
-          from == o.from &&
-          html == o.html &&
-          reply_to == o.reply_to &&
+          to == o.to &&
           subject == o.subject &&
-          template_variables == o.template_variables &&
-          to == o.to
+          cc == o.cc &&
+          bcc == o.bcc
     end
 
     # @see the `==` method
@@ -187,7 +112,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [attachments, bcc, body, cc, charset, from, html, reply_to, subject, template_variables, to].hash
+      [to, subject, cc, bcc].hash
     end
 
     # Builds the object from hash

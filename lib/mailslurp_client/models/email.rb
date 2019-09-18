@@ -25,11 +25,15 @@ module MailSlurpClient
 
     attr_accessor :cc
 
+    attr_accessor :charset
+
     attr_accessor :created_at
 
     attr_accessor :from
 
     attr_accessor :headers
+
+    attr_accessor :html
 
     attr_accessor :id
 
@@ -53,9 +57,11 @@ module MailSlurpClient
         :'bcc' => :'bcc',
         :'body' => :'body',
         :'cc' => :'cc',
+        :'charset' => :'charset',
         :'created_at' => :'createdAt',
         :'from' => :'from',
         :'headers' => :'headers',
+        :'html' => :'html',
         :'id' => :'id',
         :'inbox_id' => :'inboxId',
         :'raw_url' => :'rawUrl',
@@ -74,9 +80,11 @@ module MailSlurpClient
         :'bcc' => :'Array<String>',
         :'body' => :'String',
         :'cc' => :'Array<String>',
+        :'charset' => :'String',
         :'created_at' => :'DateTime',
         :'from' => :'String',
         :'headers' => :'Hash<String, String>',
+        :'html' => :'BOOLEAN',
         :'id' => :'String',
         :'inbox_id' => :'String',
         :'raw_url' => :'String',
@@ -121,6 +129,10 @@ module MailSlurpClient
         end
       end
 
+      if attributes.has_key?(:'charset')
+        self.charset = attributes[:'charset']
+      end
+
       if attributes.has_key?(:'createdAt')
         self.created_at = attributes[:'createdAt']
       end
@@ -133,6 +145,10 @@ module MailSlurpClient
         if (value = attributes[:'headers']).is_a?(Hash)
           self.headers = value
         end
+      end
+
+      if attributes.has_key?(:'html')
+        self.html = attributes[:'html']
       end
 
       if attributes.has_key?(:'id')
@@ -219,9 +235,11 @@ module MailSlurpClient
           bcc == o.bcc &&
           body == o.body &&
           cc == o.cc &&
+          charset == o.charset &&
           created_at == o.created_at &&
           from == o.from &&
           headers == o.headers &&
+          html == o.html &&
           id == o.id &&
           inbox_id == o.inbox_id &&
           raw_url == o.raw_url &&
@@ -240,7 +258,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [analysis, attachments, bcc, body, cc, created_at, from, headers, id, inbox_id, raw_url, subject, to, updated_at, user_id].hash
+      [analysis, attachments, bcc, body, cc, charset, created_at, from, headers, html, id, inbox_id, raw_url, subject, to, updated_at, user_id].hash
     end
 
     # Builds the object from hash

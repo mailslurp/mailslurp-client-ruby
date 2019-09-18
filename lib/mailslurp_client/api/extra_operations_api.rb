@@ -495,6 +495,64 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Forward Email
+    # Forward email content to given recipients
+    # @param email_id emailId
+    # @param forward_email_options forwardEmailOptions
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def forward_email(email_id, forward_email_options, opts = {})
+      forward_email_with_http_info(email_id, forward_email_options, opts)
+      nil
+    end
+
+    # Forward Email
+    # Forward email content to given recipients
+    # @param email_id emailId
+    # @param forward_email_options forwardEmailOptions
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def forward_email_with_http_info(email_id, forward_email_options, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.forward_email ...'
+      end
+      # verify the required parameter 'email_id' is set
+      if @api_client.config.client_side_validation && email_id.nil?
+        fail ArgumentError, "Missing the required parameter 'email_id' when calling ExtraOperationsApi.forward_email"
+      end
+      # verify the required parameter 'forward_email_options' is set
+      if @api_client.config.client_side_validation && forward_email_options.nil?
+        fail ArgumentError, "Missing the required parameter 'forward_email_options' when calling ExtraOperationsApi.forward_email"
+      end
+      # resource path
+      local_var_path = '/emails/{emailId}/forward'.sub('{' + 'emailId' + '}', email_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(forward_email_options)
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#forward_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get Email Content
     # Returns a email summary object with headers and content. To retrieve the raw unparsed email use the getRawMessage endpoint
     # @param email_id emailId

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mailslurp_client (4.8.2)
+    mailslurp_client (4.9.0)
       json (~> 2.1, >= 2.1.0)
       typhoeus (~> 1.0, >= 1.0.1)
 
