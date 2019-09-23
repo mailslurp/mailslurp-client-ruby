@@ -177,9 +177,65 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
-    # Create an Inbox (email address)
-    # Create a new inbox and ephemeral email address to send and receive from. This is a necessary step before sending or receiving emails. The response contains the inbox's ID and its associated email address. It is recommended that you create a new inbox during each test method so that it is unique and empty
+    # Create Domain
+    # Link a domain that you own with MailSlurp so you can create inboxes with it. Returns DNS records used for validation. You must add these verification records to your host provider's DNS setup to verify the domain.
+    # @param create_domain_options domainOptions
     # @param [Hash] opts the optional parameters
+    # @return [DomainPlusVerificationRecordsAndStatus]
+    def create_domain(create_domain_options, opts = {})
+      data, _status_code, _headers = create_domain_with_http_info(create_domain_options, opts)
+      data
+    end
+
+    # Create Domain
+    # Link a domain that you own with MailSlurp so you can create inboxes with it. Returns DNS records used for validation. You must add these verification records to your host provider&#39;s DNS setup to verify the domain.
+    # @param create_domain_options domainOptions
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DomainPlusVerificationRecordsAndStatus, Fixnum, Hash)>] DomainPlusVerificationRecordsAndStatus data, response status code and response headers
+    def create_domain_with_http_info(create_domain_options, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.create_domain ...'
+      end
+      # verify the required parameter 'create_domain_options' is set
+      if @api_client.config.client_side_validation && create_domain_options.nil?
+        fail ArgumentError, "Missing the required parameter 'create_domain_options' when calling ExtraOperationsApi.create_domain"
+      end
+      # resource path
+      local_var_path = '/domains'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(create_domain_options)
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'DomainPlusVerificationRecordsAndStatus')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#create_domain\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Create an Inbox (email address)
+    # Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+    # @param [Hash] opts the optional parameters
+    # @option opts [String] :email_address Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or &#x60;createDomain&#x60; method.
     # @return [Inbox]
     def create_inbox(opts = {})
       data, _status_code, _headers = create_inbox_with_http_info(opts)
@@ -187,8 +243,9 @@ module MailSlurpClient
     end
 
     # Create an Inbox (email address)
-    # Create a new inbox and ephemeral email address to send and receive from. This is a necessary step before sending or receiving emails. The response contains the inbox&#39;s ID and its associated email address. It is recommended that you create a new inbox during each test method so that it is unique and empty
+    # Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :email_address Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or &#x60;createDomain&#x60; method.
     # @return [Array<(Inbox, Fixnum, Hash)>] Inbox data, response status code and response headers
     def create_inbox_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -199,6 +256,7 @@ module MailSlurpClient
 
       # query parameters
       query_params = {}
+      query_params[:'emailAddress'] = opts[:'email_address'] if !opts[:'email_address'].nil?
 
       # header parameters
       header_params = {}
@@ -281,6 +339,54 @@ module MailSlurpClient
         :return_type => 'Webhook')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ExtraOperationsApi#create_webhook\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Delete a domain
+    # @param id id
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_domain(id, opts = {})
+      delete_domain_with_http_info(id, opts)
+      nil
+    end
+
+    # Delete a domain
+    # @param id id
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def delete_domain_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.delete_domain ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ExtraOperationsApi.delete_domain"
+      end
+      # resource path
+      local_var_path = '/domains/{id}'.sub('{' + 'id' + '}', id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#delete_domain\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -549,6 +655,104 @@ module MailSlurpClient
         :auth_names => auth_names)
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: ExtraOperationsApi#forward_email\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get a domain
+    # Returns domain verification status and tokens
+    # @param id id
+    # @param [Hash] opts the optional parameters
+    # @return [DomainPlusVerificationRecordsAndStatus]
+    def get_domain(id, opts = {})
+      data, _status_code, _headers = get_domain_with_http_info(id, opts)
+      data
+    end
+
+    # Get a domain
+    # Returns domain verification status and tokens
+    # @param id id
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(DomainPlusVerificationRecordsAndStatus, Fixnum, Hash)>] DomainPlusVerificationRecordsAndStatus data, response status code and response headers
+    def get_domain_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.get_domain ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ExtraOperationsApi.get_domain"
+      end
+      # resource path
+      local_var_path = '/domains/{id}'.sub('{' + 'id' + '}', id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'DomainPlusVerificationRecordsAndStatus')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#get_domain\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Get domains
+    # @param [Hash] opts the optional parameters
+    # @return [Array<DomainPreview>]
+    def get_domains(opts = {})
+      data, _status_code, _headers = get_domains_with_http_info(opts)
+      data
+    end
+
+    # Get domains
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Array<DomainPreview>, Fixnum, Hash)>] Array<DomainPreview> data, response status code and response headers
+    def get_domains_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.get_domains ...'
+      end
+      # resource path
+      local_var_path = '/domains'
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Array<DomainPreview>')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#get_domains\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

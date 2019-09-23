@@ -13,42 +13,44 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Preview of an email message. For full message call the email endpoints with the provided email id.
-  class EmailPreview
-    attr_accessor :bcc
+  class DomainPlusVerificationRecordsAndStatus
+    attr_accessor :created_at
 
-    attr_accessor :cc
+    attr_accessor :domain
 
-    attr_accessor :created
-
-    # ID of the Email.
     attr_accessor :id
 
-    attr_accessor :subject
+    attr_accessor :updated_at
 
-    attr_accessor :to
+    attr_accessor :user_id
+
+    attr_accessor :verification_token
+
+    attr_accessor :verified
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'bcc' => :'bcc',
-        :'cc' => :'cc',
-        :'created' => :'created',
+        :'created_at' => :'createdAt',
+        :'domain' => :'domain',
         :'id' => :'id',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'updated_at' => :'updatedAt',
+        :'user_id' => :'userId',
+        :'verification_token' => :'verificationToken',
+        :'verified' => :'verified'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'bcc' => :'Array<String>',
-        :'cc' => :'Array<String>',
-        :'created' => :'DateTime',
+        :'created_at' => :'DateTime',
+        :'domain' => :'String',
         :'id' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'updated_at' => :'DateTime',
+        :'user_id' => :'String',
+        :'verification_token' => :'String',
+        :'verified' => :'BOOLEAN'
       }
     end
 
@@ -60,34 +62,32 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
+      if attributes.has_key?(:'createdAt')
+        self.created_at = attributes[:'createdAt']
       end
 
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
-      end
-
-      if attributes.has_key?(:'created')
-        self.created = attributes[:'created']
+      if attributes.has_key?(:'domain')
+        self.domain = attributes[:'domain']
       end
 
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
       end
 
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
+      if attributes.has_key?(:'updatedAt')
+        self.updated_at = attributes[:'updatedAt']
       end
 
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
-        end
+      if attributes.has_key?(:'userId')
+        self.user_id = attributes[:'userId']
+      end
+
+      if attributes.has_key?(:'verificationToken')
+        self.verification_token = attributes[:'verificationToken']
+      end
+
+      if attributes.has_key?(:'verified')
+        self.verified = attributes[:'verified']
       end
     end
 
@@ -95,12 +95,32 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @created.nil?
-        invalid_properties.push('invalid value for "created", created cannot be nil.')
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
 
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
+      if @domain.nil?
+        invalid_properties.push('invalid value for "domain", domain cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @user_id.nil?
+        invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @verification_token.nil?
+        invalid_properties.push('invalid value for "verification_token", verification_token cannot be nil.')
+      end
+
+      if @verified.nil?
+        invalid_properties.push('invalid value for "verified", verified cannot be nil.')
       end
 
       invalid_properties
@@ -109,8 +129,13 @@ module MailSlurpClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @created.nil?
-      return false if @to.nil?
+      return false if @created_at.nil?
+      return false if @domain.nil?
+      return false if @id.nil?
+      return false if @updated_at.nil?
+      return false if @user_id.nil?
+      return false if @verification_token.nil?
+      return false if @verified.nil?
       true
     end
 
@@ -119,12 +144,13 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          bcc == o.bcc &&
-          cc == o.cc &&
-          created == o.created &&
+          created_at == o.created_at &&
+          domain == o.domain &&
           id == o.id &&
-          subject == o.subject &&
-          to == o.to
+          updated_at == o.updated_at &&
+          user_id == o.user_id &&
+          verification_token == o.verification_token &&
+          verified == o.verified
     end
 
     # @see the `==` method
@@ -136,7 +162,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bcc, cc, created, id, subject, to].hash
+      [created_at, domain, id, updated_at, user_id, verification_token, verified].hash
     end
 
     # Builds the object from hash

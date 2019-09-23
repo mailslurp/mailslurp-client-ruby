@@ -7,13 +7,17 @@ Method | HTTP request | Description
 [**bulk_create_inboxes**](ExtraOperationsApi.md#bulk_create_inboxes) | **POST** /bulk/inboxes | Bulk create Inboxes (email addresses)
 [**bulk_delete_inboxes**](ExtraOperationsApi.md#bulk_delete_inboxes) | **DELETE** /bulk/inboxes | Bulk Delete Inboxes
 [**bulk_send_emails**](ExtraOperationsApi.md#bulk_send_emails) | **POST** /bulk/send | Bulk Send Emails
+[**create_domain**](ExtraOperationsApi.md#create_domain) | **POST** /domains | Create Domain
 [**create_inbox**](ExtraOperationsApi.md#create_inbox) | **POST** /inboxes | Create an Inbox (email address)
 [**create_webhook**](ExtraOperationsApi.md#create_webhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
+[**delete_domain**](ExtraOperationsApi.md#delete_domain) | **DELETE** /domains/{id} | Delete a domain
 [**delete_email1**](ExtraOperationsApi.md#delete_email1) | **DELETE** /emails/{emailId} | Delete Email
 [**delete_inbox**](ExtraOperationsApi.md#delete_inbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**delete_webhook**](ExtraOperationsApi.md#delete_webhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**download_attachment**](ExtraOperationsApi.md#download_attachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
 [**forward_email**](ExtraOperationsApi.md#forward_email) | **POST** /emails/{emailId}/forward | Forward Email
+[**get_domain**](ExtraOperationsApi.md#get_domain) | **GET** /domains/{id} | Get a domain
+[**get_domains**](ExtraOperationsApi.md#get_domains) | **GET** /domains | Get domains
 [**get_email**](ExtraOperationsApi.md#get_email) | **GET** /emails/{emailId} | Get Email Content
 [**get_emails**](ExtraOperationsApi.md#get_emails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
 [**get_inbox**](ExtraOperationsApi.md#get_inbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
@@ -179,12 +183,12 @@ nil (empty response body)
 
 
 
-# **create_inbox**
-> Inbox create_inbox
+# **create_domain**
+> DomainPlusVerificationRecordsAndStatus create_domain(create_domain_options)
 
-Create an Inbox (email address)
+Create Domain
 
-Create a new inbox and ephemeral email address to send and receive from. This is a necessary step before sending or receiving emails. The response contains the inbox's ID and its associated email address. It is recommended that you create a new inbox during each test method so that it is unique and empty
+Link a domain that you own with MailSlurp so you can create inboxes with it. Returns DNS records used for validation. You must add these verification records to your host provider's DNS setup to verify the domain.
 
 ### Example
 ```ruby
@@ -199,10 +203,65 @@ MailSlurpClient.configure do |config|
 end
 
 api_instance = MailSlurpClient::ExtraOperationsApi.new
+create_domain_options = MailSlurpClient::CreateDomainOptions.new # CreateDomainOptions | domainOptions
+
+begin
+  #Create Domain
+  result = api_instance.create_domain(create_domain_options)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->create_domain: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **create_domain_options** | [**CreateDomainOptions**](CreateDomainOptions.md)| domainOptions | 
+
+### Return type
+
+[**DomainPlusVerificationRecordsAndStatus**](DomainPlusVerificationRecordsAndStatus.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+
+# **create_inbox**
+> Inbox create_inbox(opts)
+
+Create an Inbox (email address)
+
+Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+opts = {
+  email_address: 'email_address_example' # String | Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or `createDomain` method.
+}
 
 begin
   #Create an Inbox (email address)
-  result = api_instance.create_inbox
+  result = api_instance.create_inbox(opts)
   p result
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling ExtraOperationsApi->create_inbox: #{e}"
@@ -210,7 +269,10 @@ end
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email_address** | **String**| Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or &#x60;createDomain&#x60; method. | [optional] 
 
 ### Return type
 
@@ -278,6 +340,55 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+
+
+# **delete_domain**
+> delete_domain(id)
+
+Delete a domain
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+id = 'id_example' # String | id
+
+begin
+  #Delete a domain
+  api_instance.delete_domain(id)
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->delete_domain: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**String**](.md)| id | 
+
+### Return type
+
+nil (empty response body)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 
 
@@ -537,6 +648,104 @@ nil (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
+
+
+
+# **get_domain**
+> DomainPlusVerificationRecordsAndStatus get_domain(id)
+
+Get a domain
+
+Returns domain verification status and tokens
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+id = 'id_example' # String | id
+
+begin
+  #Get a domain
+  result = api_instance.get_domain(id)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->get_domain: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**String**](.md)| id | 
+
+### Return type
+
+[**DomainPlusVerificationRecordsAndStatus**](DomainPlusVerificationRecordsAndStatus.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
+# **get_domains**
+> Array&lt;DomainPreview&gt; get_domains
+
+Get domains
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+
+begin
+  #Get domains
+  result = api_instance.get_domains
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->get_domains: #{e}"
+end
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Array&lt;DomainPreview&gt;**](DomainPreview.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 
 

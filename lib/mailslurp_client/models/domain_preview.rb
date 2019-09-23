@@ -13,42 +13,25 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Preview of an email message. For full message call the email endpoints with the provided email id.
-  class EmailPreview
-    attr_accessor :bcc
+  # Preview object for domain entity
+  class DomainPreview
+    attr_accessor :domain
 
-    attr_accessor :cc
-
-    attr_accessor :created
-
-    # ID of the Email.
     attr_accessor :id
-
-    attr_accessor :subject
-
-    attr_accessor :to
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'bcc' => :'bcc',
-        :'cc' => :'cc',
-        :'created' => :'created',
-        :'id' => :'id',
-        :'subject' => :'subject',
-        :'to' => :'to'
+        :'domain' => :'domain',
+        :'id' => :'id'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'bcc' => :'Array<String>',
-        :'cc' => :'Array<String>',
-        :'created' => :'DateTime',
-        :'id' => :'String',
-        :'subject' => :'String',
-        :'to' => :'Array<String>'
+        :'domain' => :'String',
+        :'id' => :'String'
       }
     end
 
@@ -60,34 +43,12 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'bcc')
-        if (value = attributes[:'bcc']).is_a?(Array)
-          self.bcc = value
-        end
-      end
-
-      if attributes.has_key?(:'cc')
-        if (value = attributes[:'cc']).is_a?(Array)
-          self.cc = value
-        end
-      end
-
-      if attributes.has_key?(:'created')
-        self.created = attributes[:'created']
+      if attributes.has_key?(:'domain')
+        self.domain = attributes[:'domain']
       end
 
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
-      end
-
-      if attributes.has_key?(:'subject')
-        self.subject = attributes[:'subject']
-      end
-
-      if attributes.has_key?(:'to')
-        if (value = attributes[:'to']).is_a?(Array)
-          self.to = value
-        end
       end
     end
 
@@ -95,12 +56,12 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @created.nil?
-        invalid_properties.push('invalid value for "created", created cannot be nil.')
+      if @domain.nil?
+        invalid_properties.push('invalid value for "domain", domain cannot be nil.')
       end
 
-      if @to.nil?
-        invalid_properties.push('invalid value for "to", to cannot be nil.')
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
       invalid_properties
@@ -109,8 +70,8 @@ module MailSlurpClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @created.nil?
-      return false if @to.nil?
+      return false if @domain.nil?
+      return false if @id.nil?
       true
     end
 
@@ -119,12 +80,8 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          bcc == o.bcc &&
-          cc == o.cc &&
-          created == o.created &&
-          id == o.id &&
-          subject == o.subject &&
-          to == o.to
+          domain == o.domain &&
+          id == o.id
     end
 
     # @see the `==` method
@@ -136,7 +93,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bcc, cc, created, id, subject, to].hash
+      [domain, id].hash
     end
 
     # Builds the object from hash
