@@ -15,6 +15,8 @@ require 'date'
 module MailSlurpClient
   # Preview object for domain entity
   class DomainPreview
+    attr_accessor :created_at
+
     attr_accessor :domain
 
     attr_accessor :id
@@ -22,6 +24,7 @@ module MailSlurpClient
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'created_at' => :'createdAt',
         :'domain' => :'domain',
         :'id' => :'id'
       }
@@ -30,6 +33,7 @@ module MailSlurpClient
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'created_at' => :'DateTime',
         :'domain' => :'String',
         :'id' => :'String'
       }
@@ -42,6 +46,10 @@ module MailSlurpClient
 
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
+
+      if attributes.has_key?(:'createdAt')
+        self.created_at = attributes[:'createdAt']
+      end
 
       if attributes.has_key?(:'domain')
         self.domain = attributes[:'domain']
@@ -56,6 +64,10 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       if @domain.nil?
         invalid_properties.push('invalid value for "domain", domain cannot be nil.')
       end
@@ -70,6 +82,7 @@ module MailSlurpClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @created_at.nil?
       return false if @domain.nil?
       return false if @id.nil?
       true
@@ -80,6 +93,7 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          created_at == o.created_at &&
           domain == o.domain &&
           id == o.id
     end
@@ -93,7 +107,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [domain, id].hash
+      [created_at, domain, id].hash
     end
 
     # Builds the object from hash

@@ -13,37 +13,56 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Analysis of email
-  class EmailAnalysis
-    attr_accessor :dkim_verdict
+  class PageEmailProjection
+    attr_accessor :content
 
-    attr_accessor :dmarc_verdict
+    attr_accessor :first
 
-    attr_accessor :spam_verdict
+    attr_accessor :last
 
-    attr_accessor :spf_verdict
+    attr_accessor :number
 
-    attr_accessor :virus_verdict
+    attr_accessor :number_of_elements
+
+    attr_accessor :pageable
+
+    attr_accessor :size
+
+    attr_accessor :sort
+
+    attr_accessor :total_elements
+
+    attr_accessor :total_pages
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'dkim_verdict' => :'dkimVerdict',
-        :'dmarc_verdict' => :'dmarcVerdict',
-        :'spam_verdict' => :'spamVerdict',
-        :'spf_verdict' => :'spfVerdict',
-        :'virus_verdict' => :'virusVerdict'
+        :'content' => :'content',
+        :'first' => :'first',
+        :'last' => :'last',
+        :'number' => :'number',
+        :'number_of_elements' => :'numberOfElements',
+        :'pageable' => :'pageable',
+        :'size' => :'size',
+        :'sort' => :'sort',
+        :'total_elements' => :'totalElements',
+        :'total_pages' => :'totalPages'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'dkim_verdict' => :'String',
-        :'dmarc_verdict' => :'String',
-        :'spam_verdict' => :'String',
-        :'spf_verdict' => :'String',
-        :'virus_verdict' => :'String'
+        :'content' => :'Array<EmailProjection>',
+        :'first' => :'BOOLEAN',
+        :'last' => :'BOOLEAN',
+        :'number' => :'Integer',
+        :'number_of_elements' => :'Integer',
+        :'pageable' => :'Pageable',
+        :'size' => :'Integer',
+        :'sort' => :'Sort',
+        :'total_elements' => :'Integer',
+        :'total_pages' => :'Integer'
       }
     end
 
@@ -55,24 +74,46 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'dkimVerdict')
-        self.dkim_verdict = attributes[:'dkimVerdict']
+      if attributes.has_key?(:'content')
+        if (value = attributes[:'content']).is_a?(Array)
+          self.content = value
+        end
       end
 
-      if attributes.has_key?(:'dmarcVerdict')
-        self.dmarc_verdict = attributes[:'dmarcVerdict']
+      if attributes.has_key?(:'first')
+        self.first = attributes[:'first']
       end
 
-      if attributes.has_key?(:'spamVerdict')
-        self.spam_verdict = attributes[:'spamVerdict']
+      if attributes.has_key?(:'last')
+        self.last = attributes[:'last']
       end
 
-      if attributes.has_key?(:'spfVerdict')
-        self.spf_verdict = attributes[:'spfVerdict']
+      if attributes.has_key?(:'number')
+        self.number = attributes[:'number']
       end
 
-      if attributes.has_key?(:'virusVerdict')
-        self.virus_verdict = attributes[:'virusVerdict']
+      if attributes.has_key?(:'numberOfElements')
+        self.number_of_elements = attributes[:'numberOfElements']
+      end
+
+      if attributes.has_key?(:'pageable')
+        self.pageable = attributes[:'pageable']
+      end
+
+      if attributes.has_key?(:'size')
+        self.size = attributes[:'size']
+      end
+
+      if attributes.has_key?(:'sort')
+        self.sort = attributes[:'sort']
+      end
+
+      if attributes.has_key?(:'totalElements')
+        self.total_elements = attributes[:'totalElements']
+      end
+
+      if attributes.has_key?(:'totalPages')
+        self.total_pages = attributes[:'totalPages']
       end
     end
 
@@ -94,11 +135,16 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          dkim_verdict == o.dkim_verdict &&
-          dmarc_verdict == o.dmarc_verdict &&
-          spam_verdict == o.spam_verdict &&
-          spf_verdict == o.spf_verdict &&
-          virus_verdict == o.virus_verdict
+          content == o.content &&
+          first == o.first &&
+          last == o.last &&
+          number == o.number &&
+          number_of_elements == o.number_of_elements &&
+          pageable == o.pageable &&
+          size == o.size &&
+          sort == o.sort &&
+          total_elements == o.total_elements &&
+          total_pages == o.total_pages
     end
 
     # @see the `==` method
@@ -110,7 +156,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dkim_verdict, dmarc_verdict, spam_verdict, spf_verdict, virus_verdict].hash
+      [content, first, last, number, number_of_elements, pageable, size, sort, total_elements, total_pages].hash
     end
 
     # Builds the object from hash

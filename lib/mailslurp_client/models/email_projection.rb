@@ -13,37 +13,40 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Analysis of email
-  class EmailAnalysis
-    attr_accessor :dkim_verdict
+  class EmailProjection
+    attr_accessor :bcc
 
-    attr_accessor :dmarc_verdict
+    attr_accessor :cc
 
-    attr_accessor :spam_verdict
+    attr_accessor :created_at
 
-    attr_accessor :spf_verdict
+    attr_accessor :id
 
-    attr_accessor :virus_verdict
+    attr_accessor :subject
+
+    attr_accessor :to
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'dkim_verdict' => :'dkimVerdict',
-        :'dmarc_verdict' => :'dmarcVerdict',
-        :'spam_verdict' => :'spamVerdict',
-        :'spf_verdict' => :'spfVerdict',
-        :'virus_verdict' => :'virusVerdict'
+        :'bcc' => :'bcc',
+        :'cc' => :'cc',
+        :'created_at' => :'createdAt',
+        :'id' => :'id',
+        :'subject' => :'subject',
+        :'to' => :'to'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'dkim_verdict' => :'String',
-        :'dmarc_verdict' => :'String',
-        :'spam_verdict' => :'String',
-        :'spf_verdict' => :'String',
-        :'virus_verdict' => :'String'
+        :'bcc' => :'Array<String>',
+        :'cc' => :'Array<String>',
+        :'created_at' => :'DateTime',
+        :'id' => :'String',
+        :'subject' => :'String',
+        :'to' => :'Array<String>'
       }
     end
 
@@ -55,24 +58,34 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'dkimVerdict')
-        self.dkim_verdict = attributes[:'dkimVerdict']
+      if attributes.has_key?(:'bcc')
+        if (value = attributes[:'bcc']).is_a?(Array)
+          self.bcc = value
+        end
       end
 
-      if attributes.has_key?(:'dmarcVerdict')
-        self.dmarc_verdict = attributes[:'dmarcVerdict']
+      if attributes.has_key?(:'cc')
+        if (value = attributes[:'cc']).is_a?(Array)
+          self.cc = value
+        end
       end
 
-      if attributes.has_key?(:'spamVerdict')
-        self.spam_verdict = attributes[:'spamVerdict']
+      if attributes.has_key?(:'createdAt')
+        self.created_at = attributes[:'createdAt']
       end
 
-      if attributes.has_key?(:'spfVerdict')
-        self.spf_verdict = attributes[:'spfVerdict']
+      if attributes.has_key?(:'id')
+        self.id = attributes[:'id']
       end
 
-      if attributes.has_key?(:'virusVerdict')
-        self.virus_verdict = attributes[:'virusVerdict']
+      if attributes.has_key?(:'subject')
+        self.subject = attributes[:'subject']
+      end
+
+      if attributes.has_key?(:'to')
+        if (value = attributes[:'to']).is_a?(Array)
+          self.to = value
+        end
       end
     end
 
@@ -80,12 +93,27 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @to.nil?
+        invalid_properties.push('invalid value for "to", to cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @created_at.nil?
+      return false if @id.nil?
+      return false if @to.nil?
       true
     end
 
@@ -94,11 +122,12 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          dkim_verdict == o.dkim_verdict &&
-          dmarc_verdict == o.dmarc_verdict &&
-          spam_verdict == o.spam_verdict &&
-          spf_verdict == o.spf_verdict &&
-          virus_verdict == o.virus_verdict
+          bcc == o.bcc &&
+          cc == o.cc &&
+          created_at == o.created_at &&
+          id == o.id &&
+          subject == o.subject &&
+          to == o.to
     end
 
     # @see the `==` method
@@ -110,7 +139,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dkim_verdict, dmarc_verdict, spam_verdict, spf_verdict, virus_verdict].hash
+      [bcc, cc, created_at, id, subject, to].hash
     end
 
     # Builds the object from hash

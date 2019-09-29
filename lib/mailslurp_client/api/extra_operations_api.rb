@@ -550,6 +550,7 @@ module MailSlurpClient
     # @param attachment_id attachmentId
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :api_key Can pass apiKey in url for this request if you wish to download the file in a browser
     # @return [nil]
     def download_attachment(attachment_id, email_id, opts = {})
       download_attachment_with_http_info(attachment_id, email_id, opts)
@@ -561,6 +562,7 @@ module MailSlurpClient
     # @param attachment_id attachmentId
     # @param email_id emailId
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :api_key Can pass apiKey in url for this request if you wish to download the file in a browser
     # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
     def download_attachment_with_http_info(attachment_id, email_id, opts = {})
       if @api_client.config.debugging
@@ -579,6 +581,7 @@ module MailSlurpClient
 
       # query parameters
       query_params = {}
+      query_params[:'apiKey'] = opts[:'api_key'] if !opts[:'api_key'].nil?
 
       # header parameters
       header_params = {}
@@ -875,6 +878,59 @@ module MailSlurpClient
       return data, status_code, headers
     end
 
+    # Get all emails
+    # Responses are paginated
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page Optional page index in email list pagination (default to 0)
+    # @option opts [Integer] :size Optional page size in email list pagination (default to 20)
+    # @return [PageEmailProjection]
+    def get_emails_paginated(opts = {})
+      data, _status_code, _headers = get_emails_paginated_with_http_info(opts)
+      data
+    end
+
+    # Get all emails
+    # Responses are paginated
+    # @param [Hash] opts the optional parameters
+    # @option opts [Integer] :page Optional page index in email list pagination
+    # @option opts [Integer] :size Optional page size in email list pagination
+    # @return [Array<(PageEmailProjection, Fixnum, Hash)>] PageEmailProjection data, response status code and response headers
+    def get_emails_paginated_with_http_info(opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ExtraOperationsApi.get_emails_paginated ...'
+      end
+      # resource path
+      local_var_path = '/emails'
+
+      # query parameters
+      query_params = {}
+      query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
+      query_params[:'size'] = opts[:'size'] if !opts[:'size'].nil?
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['API_KEY']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'PageEmailProjection')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ExtraOperationsApi#get_emails_paginated\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get Inbox / EmailAddress
     # Returns an inbox's properties, including its email address and ID.
     # @param inbox_id inboxId
@@ -1007,7 +1063,7 @@ module MailSlurpClient
       # header parameters
       header_params = {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      header_params['Accept'] = @api_client.select_header_accept(['text/plain'])
 
       # form parameters
       form_params = {}

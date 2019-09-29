@@ -13,37 +13,24 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Analysis of email
-  class EmailAnalysis
-    attr_accessor :dkim_verdict
+  class Sort
+    attr_accessor :sorted
 
-    attr_accessor :dmarc_verdict
-
-    attr_accessor :spam_verdict
-
-    attr_accessor :spf_verdict
-
-    attr_accessor :virus_verdict
+    attr_accessor :unsorted
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'dkim_verdict' => :'dkimVerdict',
-        :'dmarc_verdict' => :'dmarcVerdict',
-        :'spam_verdict' => :'spamVerdict',
-        :'spf_verdict' => :'spfVerdict',
-        :'virus_verdict' => :'virusVerdict'
+        :'sorted' => :'sorted',
+        :'unsorted' => :'unsorted'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'dkim_verdict' => :'String',
-        :'dmarc_verdict' => :'String',
-        :'spam_verdict' => :'String',
-        :'spf_verdict' => :'String',
-        :'virus_verdict' => :'String'
+        :'sorted' => :'BOOLEAN',
+        :'unsorted' => :'BOOLEAN'
       }
     end
 
@@ -55,24 +42,12 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'dkimVerdict')
-        self.dkim_verdict = attributes[:'dkimVerdict']
+      if attributes.has_key?(:'sorted')
+        self.sorted = attributes[:'sorted']
       end
 
-      if attributes.has_key?(:'dmarcVerdict')
-        self.dmarc_verdict = attributes[:'dmarcVerdict']
-      end
-
-      if attributes.has_key?(:'spamVerdict')
-        self.spam_verdict = attributes[:'spamVerdict']
-      end
-
-      if attributes.has_key?(:'spfVerdict')
-        self.spf_verdict = attributes[:'spfVerdict']
-      end
-
-      if attributes.has_key?(:'virusVerdict')
-        self.virus_verdict = attributes[:'virusVerdict']
+      if attributes.has_key?(:'unsorted')
+        self.unsorted = attributes[:'unsorted']
       end
     end
 
@@ -94,11 +69,8 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          dkim_verdict == o.dkim_verdict &&
-          dmarc_verdict == o.dmarc_verdict &&
-          spam_verdict == o.spam_verdict &&
-          spf_verdict == o.spf_verdict &&
-          virus_verdict == o.virus_verdict
+          sorted == o.sorted &&
+          unsorted == o.unsorted
     end
 
     # @see the `==` method
@@ -110,7 +82,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dkim_verdict, dmarc_verdict, spam_verdict, spf_verdict, virus_verdict].hash
+      [sorted, unsorted].hash
     end
 
     # Builds the object from hash

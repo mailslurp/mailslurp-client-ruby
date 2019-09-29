@@ -11,5 +11,5 @@ OpenAPI Generator version: 3.3.4
 =end
 
 module MailSlurpClient
-  VERSION = '5.1.0'
+  VERSION = '5.2.0'
 end

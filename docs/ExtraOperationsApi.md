@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**get_domains**](ExtraOperationsApi.md#get_domains) | **GET** /domains | Get domains
 [**get_email**](ExtraOperationsApi.md#get_email) | **GET** /emails/{emailId} | Get Email Content
 [**get_emails**](ExtraOperationsApi.md#get_emails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
+[**get_emails_paginated**](ExtraOperationsApi.md#get_emails_paginated) | **GET** /emails | Get all emails
 [**get_inbox**](ExtraOperationsApi.md#get_inbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
 [**get_inboxes**](ExtraOperationsApi.md#get_inboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 [**get_raw_email_contents**](ExtraOperationsApi.md#get_raw_email_contents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
@@ -546,7 +547,7 @@ nil (empty response body)
 
 
 # **download_attachment**
-> download_attachment(attachment_id, email_id)
+> download_attachment(attachment_id, email_id, opts)
 
 Get email attachment
 
@@ -567,10 +568,13 @@ end
 api_instance = MailSlurpClient::ExtraOperationsApi.new
 attachment_id = 'attachment_id_example' # String | attachmentId
 email_id = 'email_id_example' # String | emailId
+opts = {
+  api_key: 'api_key_example' # String | Can pass apiKey in url for this request if you wish to download the file in a browser
+}
 
 begin
   #Get email attachment
-  api_instance.download_attachment(attachment_id, email_id)
+  api_instance.download_attachment(attachment_id, email_id, opts)
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling ExtraOperationsApi->download_attachment: #{e}"
 end
@@ -582,6 +586,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **attachment_id** | **String**| attachmentId | 
  **email_id** | [**String**](.md)| emailId | 
+ **api_key** | **String**| Can pass apiKey in url for this request if you wish to download the file in a browser | [optional] 
 
 ### Return type
 
@@ -863,6 +868,62 @@ Name | Type | Description  | Notes
 
 
 
+# **get_emails_paginated**
+> PageEmailProjection get_emails_paginated(opts)
+
+Get all emails
+
+Responses are paginated
+
+### Example
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::ExtraOperationsApi.new
+opts = {
+  page: 0, # Integer | Optional page index in email list pagination
+  size: 20 # Integer | Optional page size in email list pagination
+}
+
+begin
+  #Get all emails
+  result = api_instance.get_emails_paginated(opts)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling ExtraOperationsApi->get_emails_paginated: #{e}"
+end
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **Integer**| Optional page index in email list pagination | [optional] [default to 0]
+ **size** | **Integer**| Optional page size in email list pagination | [optional] [default to 20]
+
+### Return type
+
+[**PageEmailProjection**](PageEmailProjection.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+
 # **get_inbox**
 > Inbox get_inbox(inbox_id)
 
@@ -1011,7 +1072,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain
 
 
 

@@ -21,6 +21,8 @@ module MailSlurpClient
 
     attr_accessor :created
 
+    attr_accessor :created_at
+
     # ID of the Email.
     attr_accessor :id
 
@@ -34,6 +36,7 @@ module MailSlurpClient
         :'bcc' => :'bcc',
         :'cc' => :'cc',
         :'created' => :'created',
+        :'created_at' => :'createdAt',
         :'id' => :'id',
         :'subject' => :'subject',
         :'to' => :'to'
@@ -46,6 +49,7 @@ module MailSlurpClient
         :'bcc' => :'Array<String>',
         :'cc' => :'Array<String>',
         :'created' => :'DateTime',
+        :'created_at' => :'DateTime',
         :'id' => :'String',
         :'subject' => :'String',
         :'to' => :'Array<String>'
@@ -76,6 +80,10 @@ module MailSlurpClient
         self.created = attributes[:'created']
       end
 
+      if attributes.has_key?(:'createdAt')
+        self.created_at = attributes[:'createdAt']
+      end
+
       if attributes.has_key?(:'id')
         self.id = attributes[:'id']
       end
@@ -99,6 +107,10 @@ module MailSlurpClient
         invalid_properties.push('invalid value for "created", created cannot be nil.')
       end
 
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
       if @to.nil?
         invalid_properties.push('invalid value for "to", to cannot be nil.')
       end
@@ -110,6 +122,7 @@ module MailSlurpClient
     # @return true if the model is valid
     def valid?
       return false if @created.nil?
+      return false if @created_at.nil?
       return false if @to.nil?
       true
     end
@@ -122,6 +135,7 @@ module MailSlurpClient
           bcc == o.bcc &&
           cc == o.cc &&
           created == o.created &&
+          created_at == o.created_at &&
           id == o.id &&
           subject == o.subject &&
           to == o.to
@@ -136,7 +150,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [bcc, cc, created, id, subject, to].hash
+      [bcc, cc, created, created_at, id, subject, to].hash
     end
 
     # Builds the object from hash

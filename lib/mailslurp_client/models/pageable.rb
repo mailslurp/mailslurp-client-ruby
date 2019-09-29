@@ -13,37 +13,40 @@ OpenAPI Generator version: 3.3.4
 require 'date'
 
 module MailSlurpClient
-  # Analysis of email
-  class EmailAnalysis
-    attr_accessor :dkim_verdict
+  class Pageable
+    attr_accessor :offset
 
-    attr_accessor :dmarc_verdict
+    attr_accessor :page_number
 
-    attr_accessor :spam_verdict
+    attr_accessor :page_size
 
-    attr_accessor :spf_verdict
+    attr_accessor :paged
 
-    attr_accessor :virus_verdict
+    attr_accessor :sort
+
+    attr_accessor :unpaged
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'dkim_verdict' => :'dkimVerdict',
-        :'dmarc_verdict' => :'dmarcVerdict',
-        :'spam_verdict' => :'spamVerdict',
-        :'spf_verdict' => :'spfVerdict',
-        :'virus_verdict' => :'virusVerdict'
+        :'offset' => :'offset',
+        :'page_number' => :'pageNumber',
+        :'page_size' => :'pageSize',
+        :'paged' => :'paged',
+        :'sort' => :'sort',
+        :'unpaged' => :'unpaged'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'dkim_verdict' => :'String',
-        :'dmarc_verdict' => :'String',
-        :'spam_verdict' => :'String',
-        :'spf_verdict' => :'String',
-        :'virus_verdict' => :'String'
+        :'offset' => :'Integer',
+        :'page_number' => :'Integer',
+        :'page_size' => :'Integer',
+        :'paged' => :'BOOLEAN',
+        :'sort' => :'Sort',
+        :'unpaged' => :'BOOLEAN'
       }
     end
 
@@ -55,24 +58,28 @@ module MailSlurpClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'dkimVerdict')
-        self.dkim_verdict = attributes[:'dkimVerdict']
+      if attributes.has_key?(:'offset')
+        self.offset = attributes[:'offset']
       end
 
-      if attributes.has_key?(:'dmarcVerdict')
-        self.dmarc_verdict = attributes[:'dmarcVerdict']
+      if attributes.has_key?(:'pageNumber')
+        self.page_number = attributes[:'pageNumber']
       end
 
-      if attributes.has_key?(:'spamVerdict')
-        self.spam_verdict = attributes[:'spamVerdict']
+      if attributes.has_key?(:'pageSize')
+        self.page_size = attributes[:'pageSize']
       end
 
-      if attributes.has_key?(:'spfVerdict')
-        self.spf_verdict = attributes[:'spfVerdict']
+      if attributes.has_key?(:'paged')
+        self.paged = attributes[:'paged']
       end
 
-      if attributes.has_key?(:'virusVerdict')
-        self.virus_verdict = attributes[:'virusVerdict']
+      if attributes.has_key?(:'sort')
+        self.sort = attributes[:'sort']
+      end
+
+      if attributes.has_key?(:'unpaged')
+        self.unpaged = attributes[:'unpaged']
       end
     end
 
@@ -94,11 +101,12 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          dkim_verdict == o.dkim_verdict &&
-          dmarc_verdict == o.dmarc_verdict &&
-          spam_verdict == o.spam_verdict &&
-          spf_verdict == o.spf_verdict &&
-          virus_verdict == o.virus_verdict
+          offset == o.offset &&
+          page_number == o.page_number &&
+          page_size == o.page_size &&
+          paged == o.paged &&
+          sort == o.sort &&
+          unpaged == o.unpaged
     end
 
     # @see the `==` method
@@ -110,7 +118,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [dkim_verdict, dmarc_verdict, spam_verdict, spf_verdict, virus_verdict].hash
+      [offset, page_number, page_size, paged, sort, unpaged].hash
     end
 
     # Builds the object from hash

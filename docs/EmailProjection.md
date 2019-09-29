@@ -1,13 +1,12 @@
-# MailSlurpClient::EmailPreview
+# MailSlurpClient::EmailProjection
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **bcc** | **Array&lt;String&gt;** |  | [optional] 
 **cc** | **Array&lt;String&gt;** |  | [optional] 
-**created** | **DateTime** |  | 
 **created_at** | **DateTime** |  | 
-**id** | **String** | ID of the Email. | [optional] 
+**id** | **String** |  | 
 **subject** | **String** |  | [optional] 
 **to** | **Array&lt;String&gt;** |  | 
 
