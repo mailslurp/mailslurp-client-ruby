@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## create_domain
 
-> DomainPlusVerificationRecordsAndStatus create_domain(domain_options)
+> DomainDto create_domain(domain_options)
 
 Create Domain
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DomainPlusVerificationRecordsAndStatus**](DomainPlusVerificationRecordsAndStatus.md)
+[**DomainDto**](DomainDto.md)
 
 ### Authorization
 
@@ -120,7 +120,7 @@ nil (empty response body)
 
 ## get_domain
 
-> DomainPlusVerificationRecordsAndStatus get_domain(id)
+> DomainDto get_domain(id)
 
 Get a domain
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DomainPlusVerificationRecordsAndStatus**](DomainPlusVerificationRecordsAndStatus.md)
+[**DomainDto**](DomainDto.md)
 
 ### Authorization
 

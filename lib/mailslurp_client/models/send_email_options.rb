@@ -1,7 +1,7 @@
 =begin
 #MailSlurp API
 
-### Introduction  [MailSlurp](https://www.mailslurp.com) is an Email API for developers and QA testers. It let's users: - create emails addresses on demand - receive emails and attachments in code - send templated HTML emails  ## About  This page contains the REST API documentation for MailSlurp. All requests require API Key authentication passed as an `x-api-key` header.  Create an account to [get your free API Key](https://app.mailslurp.com/sign-up/).  ## Resources - 🔑 [Get API Key](https://app.mailslurp.com/sign-up/)                    - 🎓 [Developer Portal](https://www.mailslurp.com/docs/)           - 📦 [Library SDKs](https://www.mailslurp.com/docs/) - ✍️ [Code Examples](https://www.mailslurp.com/examples) - ⚠️ [Report an issue](https://drift.me/mailslurp)  ## Explore  
+#MailSlurp is an API for sending and receiving emails from dynamically allocated email addresses. It's designed for developers and QA teams to test applications, process inbound emails, send templated notifications, attachments, and more.   ## Overview  #### Inboxes  Inboxes have real email addresses that can send and receive emails. You can create inboxes with specific email addresses (using custom domains). You can also use randomly assigned MailSlurp addresses as unique, disposable test addresses.   See the InboxController or [inbox and email address guide](https://www.mailslurp.com/guides/) for more information.  #### Receive Emails You can receive emails in a number of ways. You can fetch emails and attachments directly from an inbox. Or you can use `waitFor` endpoints to hold a connection open until an email is received that matches given criteria (such as subject or body content). You can also use webhooks to have emails from multiple inboxes forwarded to your server via HTTP POST.  InboxController methods with `waitFor` in the name have a long timeout period and instruct MailSlurp to wait until an expected email is received. You can set conditions on email counts, subject or body matches, and more.  Most receive methods only return an email ID and not the full email (to keep response sizes low). To fetch the full body or attachments for an email use the email's ID with EmailController endpoints.  See the InboxController or [receiving emails guide](https://www.mailslurp.com/guides/) for more information.  #### Send Emails You can send templated HTML emails in several ways. You must first create an inbox to send an email. An inbox can have a specific address or a randomly assigned one. You can send emails from an inbox using `to`, `cc`, and `bcc` recipient lists or with contacts and contact groups.   Emails can contain plain-text or HTML bodies. You can also use email templates that support [moustache](https://mustache.github.io/) template variables. You can send attachments by first posting files to the AttachmentController and then using the returned IDs in the `attachments` field of the send options.  See the InboxController or [sending emails guide](https://www.mailslurp.com/guides/) for more information.  ## Templates MailSlurp emails support templates. You can create templates in the dashboard or API that contain [moustache](https://mustache.github.io/) style variables: for instance `Hello {{name}}`. Then when sending emails you can pass a map of variables names and values to be used. Additionally, when sending emails with contact groups you can use properties of the contact in your templates like `{{firstName}}` and `{{lastName}}``.  ## Explore     
 
 The version of the OpenAPI document: 6.5.2
 
@@ -13,15 +13,15 @@ OpenAPI Generator version: 4.2.3
 require 'date'
 
 module MailSlurpClient
-  # Options for sending an email message from an inbox. Must supply either list of `to` email addresses or `toGroups` list of Contact Group IDs.
+  # Options for sending an email message from an inbox. You must provide one of: `to`, `toGroup`, or `toContacts` to send an email. All other parameters are optional.
   class SendEmailOptions
-    # Optional list of attachment IDs to send with this email. You must first upload each attachment separately in order to obtain attachment IDs
+    # Optional list of attachment IDs to send with this email. You must first upload each attachment separately in order to obtain attachment IDs. This way you can reuse attachments with different emails once uploaded.
     attr_accessor :attachments
 
     # Optional list of bcc destination email addresses
     attr_accessor :bcc
 
-    # Contents of email. If body contains HTML then set `isHTML` to true. You can use moustache template syntax in the body in conjunction with `toGroup` contact variables or `templateVariables` data.
+    # Optional contents of email. If body contains HTML then set `isHTML` to true to ensure that email clients render it correctly. You can use moustache template syntax in the email body in conjunction with `toGroup` contact variables or `templateVariables` data. If you need more templating control consider creating a template and using the `template` property instead of the body.
     attr_accessor :body
 
     # Optional list of cc destination email addresses
@@ -30,32 +30,57 @@ module MailSlurpClient
     # Optional charset
     attr_accessor :charset
 
-    # Optional from address. If not set source inbox address will be used
+    # Optional from address. If not set the source inbox address will be used for this field. Beware of potential spam penalties when setting this field to an address not used by the inbox. For custom email addresses use a custom domain.
     attr_accessor :from
 
-    # Optional HTML flag. If true the `content-type` of the email will be `text/html`
+    # Optional HTML flag. If true the `content-type` of the email will be `text/html`. Set to true when sending HTML to ensure proper rending on email clients
     attr_accessor :is_html
 
     # Optional replyTo header
     attr_accessor :reply_to
 
+    # Optional strategy to use when sending the email
+    attr_accessor :send_strategy
+
     # Optional email subject line
     attr_accessor :subject
 
-    # Optional template ID to use for body. Will override body if provided
+    # Optional template ID to use for body. Will override body if provided. When using a template make sure you pass the corresponding map of `templateVariables`. You can find which variables are needed by fetching the template itself or viewing it in the dashboard.
     attr_accessor :template
 
-    # Optional map of template variables. Will replace moustache syntax variables in subject and body or template with the associated values
+    # Optional map of template variables. Will replace moustache syntax variables in subject and body or template with the associated values if found.
     attr_accessor :template_variables
 
-    # List of destination email addresses. Even single recipients must be in array form. Max 100 recipients.
+    # List of destination email addresses. Even single recipients must be in array form. Maximum recipients per email depends on your plan. If you need to send many emails try using contacts or contact groups or use a non standard sendStrategy to ensure that spam filters are not triggered (many recipients in one email can affect your spam rating).
     attr_accessor :to
 
-    # Optional list of contact IDs to send email to
+    # Optional list of contact IDs to send email to. Manage your contacts via the API or dashboard. When contacts are used the email is sent to each contact separately so they will not see other recipients.
     attr_accessor :to_contacts
 
-    # Optional contact group ID to send email to
+    # Optional contact group ID to send email to. You can create contacts and contact groups in the API or dashboard and use them for email campaigns. When contact groups are used the email is sent to each contact separately so they will not see other recipients
     attr_accessor :to_group
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -68,6 +93,7 @@ module MailSlurpClient
         :'from' => :'from',
         :'is_html' => :'isHTML',
         :'reply_to' => :'replyTo',
+        :'send_strategy' => :'sendStrategy',
         :'subject' => :'subject',
         :'template' => :'template',
         :'template_variables' => :'templateVariables',
@@ -88,6 +114,7 @@ module MailSlurpClient
         :'from' => :'String',
         :'is_html' => :'Boolean',
         :'reply_to' => :'String',
+        :'send_strategy' => :'String',
         :'subject' => :'String',
         :'template' => :'String',
         :'template_variables' => :'Object',
@@ -156,6 +183,10 @@ module MailSlurpClient
         self.reply_to = attributes[:'reply_to']
       end
 
+      if attributes.key?(:'send_strategy')
+        self.send_strategy = attributes[:'send_strategy']
+      end
+
       if attributes.key?(:'subject')
         self.subject = attributes[:'subject']
       end
@@ -195,7 +226,19 @@ module MailSlurpClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      send_strategy_validator = EnumAttributeValidator.new('String', ["SINGLE_MESSAGE"])
+      return false unless send_strategy_validator.valid?(@send_strategy)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] send_strategy Object to be assigned
+    def send_strategy=(send_strategy)
+      validator = EnumAttributeValidator.new('String', ["SINGLE_MESSAGE"])
+      unless validator.valid?(send_strategy)
+        fail ArgumentError, "invalid value for \"send_strategy\", must be one of #{validator.allowable_values}."
+      end
+      @send_strategy = send_strategy
     end
 
     # Checks equality by comparing each attribute.
@@ -211,6 +254,7 @@ module MailSlurpClient
           from == o.from &&
           is_html == o.is_html &&
           reply_to == o.reply_to &&
+          send_strategy == o.send_strategy &&
           subject == o.subject &&
           template == o.template &&
           template_variables == o.template_variables &&
@@ -228,7 +272,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [attachments, bcc, body, cc, charset, from, is_html, reply_to, subject, template, template_variables, to, to_contacts, to_group].hash
+      [attachments, bcc, body, cc, charset, from, is_html, reply_to, send_strategy, subject, template, template_variables, to, to_contacts, to_group].hash
     end
 
     # Builds the object from hash

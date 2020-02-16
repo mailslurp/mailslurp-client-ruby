@@ -483,7 +483,7 @@ This endpoint does not need any parameter.
 
 ## send_email
 
-> send_email(inbox_id, send_email_options)
+> send_email(inbox_id, opts)
 
 Send Email
 
@@ -503,12 +503,14 @@ MailSlurpClient.configure do |config|
 end
 
 api_instance = MailSlurpClient::InboxControllerApi.new
-inbox_id = 'inbox_id_example' # String | inboxId
-send_email_options = MailSlurpClient::SendEmailOptions.new # SendEmailOptions | sendEmailOptions
+inbox_id = 'inbox_id_example' # String | ID of the inbox you want to send the email from
+opts = {
+  send_email_options: MailSlurpClient::SendEmailOptions.new # SendEmailOptions | Options for the email
+}
 
 begin
   #Send Email
-  api_instance.send_email(inbox_id, send_email_options)
+  api_instance.send_email(inbox_id, opts)
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling InboxControllerApi->send_email: #{e}"
 end
@@ -519,8 +521,8 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inbox_id** | [**String**](.md)| inboxId | 
- **send_email_options** | [**SendEmailOptions**](SendEmailOptions.md)| sendEmailOptions | 
+ **inbox_id** | [**String**](.md)| ID of the inbox you want to send the email from | 
+ **send_email_options** | [**SendEmailOptions**](SendEmailOptions.md)| Options for the email | [optional] 
 
 ### Return type
 

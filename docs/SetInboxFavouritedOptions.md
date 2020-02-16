@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**state** | **Boolean** |  | [optional] 
+**state** | **Boolean** | Should the inbox be favourited? | [optional] 
 
 ## Code Sample
 

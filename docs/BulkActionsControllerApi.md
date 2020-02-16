@@ -16,8 +16,6 @@ Method | HTTP request | Description
 
 Bulk create Inboxes (email addresses)
 
-Enterprise Plan Required
-
 ### Example
 
 ```ruby
@@ -70,8 +68,6 @@ Name | Type | Description  | Notes
 
 Bulk Delete Inboxes
 
-Enterprise Plan Required
-
 ### Example
 
 ```ruby
@@ -122,8 +118,6 @@ nil (empty response body)
 > bulk_send_emails(bulk_send_email_options)
 
 Bulk Send Emails
-
-Enterprise Plan Required
 
 ### Example
 

@@ -13,60 +13,45 @@ OpenAPI Generator version: 4.2.3
 require 'date'
 
 module MailSlurpClient
-  class PageWebhookProjection
-    attr_accessor :content
+  # Domain plus verification records and status
+  class DomainDto
+    attr_accessor :created_at
 
-    attr_accessor :empty
+    attr_accessor :domain
 
-    attr_accessor :first
+    attr_accessor :id
 
-    attr_accessor :last
+    attr_accessor :is_verified
 
-    attr_accessor :number
+    attr_accessor :updated_at
 
-    attr_accessor :number_of_elements
+    attr_accessor :user_id
 
-    attr_accessor :pageable
-
-    attr_accessor :size
-
-    attr_accessor :sort
-
-    attr_accessor :total_elements
-
-    attr_accessor :total_pages
+    attr_accessor :verification_token
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'content' => :'content',
-        :'empty' => :'empty',
-        :'first' => :'first',
-        :'last' => :'last',
-        :'number' => :'number',
-        :'number_of_elements' => :'numberOfElements',
-        :'pageable' => :'pageable',
-        :'size' => :'size',
-        :'sort' => :'sort',
-        :'total_elements' => :'totalElements',
-        :'total_pages' => :'totalPages'
+        :'created_at' => :'createdAt',
+        :'domain' => :'domain',
+        :'id' => :'id',
+        :'is_verified' => :'isVerified',
+        :'updated_at' => :'updatedAt',
+        :'user_id' => :'userId',
+        :'verification_token' => :'verificationToken'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'content' => :'Array<WebhookProjection>',
-        :'empty' => :'Boolean',
-        :'first' => :'Boolean',
-        :'last' => :'Boolean',
-        :'number' => :'Integer',
-        :'number_of_elements' => :'Integer',
-        :'pageable' => :'Pageable',
-        :'size' => :'Integer',
-        :'sort' => :'Sort',
-        :'total_elements' => :'Integer',
-        :'total_pages' => :'Integer'
+        :'created_at' => :'DateTime',
+        :'domain' => :'String',
+        :'id' => :'String',
+        :'is_verified' => :'Boolean',
+        :'updated_at' => :'DateTime',
+        :'user_id' => :'String',
+        :'verification_token' => :'String'
       }
     end
 
@@ -80,61 +65,43 @@ module MailSlurpClient
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `MailSlurpClient::PageWebhookProjection` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `MailSlurpClient::DomainDto` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `MailSlurpClient::PageWebhookProjection`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `MailSlurpClient::DomainDto`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'content')
-        if (value = attributes[:'content']).is_a?(Array)
-          self.content = value
-        end
+      if attributes.key?(:'created_at')
+        self.created_at = attributes[:'created_at']
       end
 
-      if attributes.key?(:'empty')
-        self.empty = attributes[:'empty']
+      if attributes.key?(:'domain')
+        self.domain = attributes[:'domain']
       end
 
-      if attributes.key?(:'first')
-        self.first = attributes[:'first']
+      if attributes.key?(:'id')
+        self.id = attributes[:'id']
       end
 
-      if attributes.key?(:'last')
-        self.last = attributes[:'last']
+      if attributes.key?(:'is_verified')
+        self.is_verified = attributes[:'is_verified']
       end
 
-      if attributes.key?(:'number')
-        self.number = attributes[:'number']
+      if attributes.key?(:'updated_at')
+        self.updated_at = attributes[:'updated_at']
       end
 
-      if attributes.key?(:'number_of_elements')
-        self.number_of_elements = attributes[:'number_of_elements']
+      if attributes.key?(:'user_id')
+        self.user_id = attributes[:'user_id']
       end
 
-      if attributes.key?(:'pageable')
-        self.pageable = attributes[:'pageable']
-      end
-
-      if attributes.key?(:'size')
-        self.size = attributes[:'size']
-      end
-
-      if attributes.key?(:'sort')
-        self.sort = attributes[:'sort']
-      end
-
-      if attributes.key?(:'total_elements')
-        self.total_elements = attributes[:'total_elements']
-      end
-
-      if attributes.key?(:'total_pages')
-        self.total_pages = attributes[:'total_pages']
+      if attributes.key?(:'verification_token')
+        self.verification_token = attributes[:'verification_token']
       end
     end
 
@@ -142,12 +109,47 @@ module MailSlurpClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @domain.nil?
+        invalid_properties.push('invalid value for "domain", domain cannot be nil.')
+      end
+
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @is_verified.nil?
+        invalid_properties.push('invalid value for "is_verified", is_verified cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
+      if @user_id.nil?
+        invalid_properties.push('invalid value for "user_id", user_id cannot be nil.')
+      end
+
+      if @verification_token.nil?
+        invalid_properties.push('invalid value for "verification_token", verification_token cannot be nil.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if @created_at.nil?
+      return false if @domain.nil?
+      return false if @id.nil?
+      return false if @is_verified.nil?
+      return false if @updated_at.nil?
+      return false if @user_id.nil?
+      return false if @verification_token.nil?
       true
     end
 
@@ -156,17 +158,13 @@ module MailSlurpClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          content == o.content &&
-          empty == o.empty &&
-          first == o.first &&
-          last == o.last &&
-          number == o.number &&
-          number_of_elements == o.number_of_elements &&
-          pageable == o.pageable &&
-          size == o.size &&
-          sort == o.sort &&
-          total_elements == o.total_elements &&
-          total_pages == o.total_pages
+          created_at == o.created_at &&
+          domain == o.domain &&
+          id == o.id &&
+          is_verified == o.is_verified &&
+          updated_at == o.updated_at &&
+          user_id == o.user_id &&
+          verification_token == o.verification_token
     end
 
     # @see the `==` method
@@ -178,7 +176,7 @@ module MailSlurpClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [content, empty, first, last, number, number_of_elements, pageable, size, sort, total_elements, total_pages].hash
+      [created_at, domain, id, is_verified, updated_at, user_id, verification_token].hash
     end
 
     # Builds the object from hash
