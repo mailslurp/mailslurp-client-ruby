@@ -5,14 +5,17 @@ All URIs are relative to *https://api.mailslurp.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_all_emails**](EmailControllerApi.md#delete_all_emails) | **DELETE** /emails | Delete all emails
-[**delete_email**](EmailControllerApi.md#delete_email) | **DELETE** /emails/{emailId} | Delete Email
-[**download_attachment**](EmailControllerApi.md#download_attachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
-[**forward_email**](EmailControllerApi.md#forward_email) | **POST** /emails/{emailId}/forward | Forward Email
+[**delete_email**](EmailControllerApi.md#delete_email) | **DELETE** /emails/{emailId} | Delete an email
+[**download_attachment**](EmailControllerApi.md#download_attachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment bytes
+[**forward_email**](EmailControllerApi.md#forward_email) | **POST** /emails/{emailId}/forward | Forward email
 [**get_attachment_meta_data**](EmailControllerApi.md#get_attachment_meta_data) | **GET** /emails/{emailId}/attachments/{attachmentId}/metadata | Get email attachment metadata
 [**get_attachments**](EmailControllerApi.md#get_attachments) | **GET** /emails/{emailId}/attachments | Get all email attachment metadata
-[**get_email**](EmailControllerApi.md#get_email) | **GET** /emails/{emailId} | Get Email Content
+[**get_email**](EmailControllerApi.md#get_email) | **GET** /emails/{emailId} | Get email content
+[**get_email_html**](EmailControllerApi.md#get_email_html) | **GET** /emails/{emailId}/html | Get email content as HTML
 [**get_emails_paginated**](EmailControllerApi.md#get_emails_paginated) | **GET** /emails | Get all emails
-[**get_raw_email_contents**](EmailControllerApi.md#get_raw_email_contents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
+[**get_raw_email_contents**](EmailControllerApi.md#get_raw_email_contents) | **GET** /emails/{emailId}/raw | Get raw email string
+[**get_raw_email_json**](EmailControllerApi.md#get_raw_email_json) | **GET** /emails/{emailId}/raw/json | Get raw email in JSON
+[**get_unread_email_count**](EmailControllerApi.md#get_unread_email_count) | **GET** /emails/unreadCount | Get unread email count
 [**validate_email**](EmailControllerApi.md#validate_email) | **POST** /emails/{emailId}/validate | Validate email
 
 
@@ -23,7 +26,7 @@ Method | HTTP request | Description
 
 Delete all emails
 
-Deletes all emails
+Deletes all emails in your account. Be careful as emails cannot be recovered
 
 ### Example
 
@@ -70,9 +73,9 @@ nil (empty response body)
 
 > delete_email(email_id)
 
-Delete Email
+Delete an email
 
-Deletes an email and removes it from the inbox
+Deletes an email and removes it from the inbox. Deleted emails cannot be recovered.
 
 ### Example
 
@@ -91,7 +94,7 @@ api_instance = MailSlurpClient::EmailControllerApi.new
 email_id = 'email_id_example' # String | emailId
 
 begin
-  #Delete Email
+  #Delete an email
   api_instance.delete_email(email_id)
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling EmailControllerApi->delete_email: #{e}"
@@ -123,9 +126,9 @@ nil (empty response body)
 
 > String download_attachment(attachment_id, email_id, opts)
 
-Get email attachment
+Get email attachment bytes
 
-Returns the specified attachment for a given email as a byte stream (file download). Get the attachmentId from the email response.
+Returns the specified attachment for a given email as a byte stream (file download). You can find attachment ids in email responses endpoint responses. The response type is application/octet-stream.
 
 ### Example
 
@@ -148,7 +151,7 @@ opts = {
 }
 
 begin
-  #Get email attachment
+  #Get email attachment bytes
   result = api_instance.download_attachment(attachment_id, email_id, opts)
   p result
 rescue MailSlurpClient::ApiError => e
@@ -183,9 +186,9 @@ Name | Type | Description  | Notes
 
 > forward_email(email_id, forward_email_options)
 
-Forward Email
+Forward email
 
-Forward email content to given recipients
+Forward an existing email to new recipients.
 
 ### Example
 
@@ -205,7 +208,7 @@ email_id = 'email_id_example' # String | emailId
 forward_email_options = MailSlurpClient::ForwardEmailOptions.new # ForwardEmailOptions | forwardEmailOptions
 
 begin
-  #Forward Email
+  #Forward email
   api_instance.forward_email(email_id, forward_email_options)
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling EmailControllerApi->forward_email: #{e}"
@@ -346,11 +349,11 @@ Name | Type | Description  | Notes
 
 ## get_email
 
-> Email get_email(email_id)
+> Email get_email(email_id, opts)
 
-Get Email Content
+Get email content
 
-Returns a email summary object with headers and content. To retrieve the raw unparsed email use the getRawMessage endpoint
+Returns a email summary object with headers and content. To retrieve the raw unparsed email use the getRawEmail endpoints
 
 ### Example
 
@@ -367,10 +370,13 @@ end
 
 api_instance = MailSlurpClient::EmailControllerApi.new
 email_id = 'email_id_example' # String | emailId
+opts = {
+  decode: false # Boolean | Decode email body quoted-printable encoding to plain text. SMTP servers often encode text using quoted-printable format (for instance `=D7`). This can be a pain for testing
+}
 
 begin
-  #Get Email Content
-  result = api_instance.get_email(email_id)
+  #Get email content
+  result = api_instance.get_email(email_id, opts)
   p result
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling EmailControllerApi->get_email: #{e}"
@@ -383,6 +389,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **email_id** | [**String**](.md)| emailId | 
+ **decode** | **Boolean**| Decode email body quoted-printable encoding to plain text. SMTP servers often encode text using quoted-printable format (for instance &#x60;&#x3D;D7&#x60;). This can be a pain for testing | [optional] [default to false]
 
 ### Return type
 
@@ -398,13 +405,71 @@ Name | Type | Description  | Notes
 - **Accept**: application/json
 
 
+## get_email_html
+
+> String get_email_html(email_id, opts)
+
+Get email content as HTML
+
+Retrieve email content as HTML response for viewing in browsers. Decodes quoted-printable entities and converts charset to UTF-8. Pass your API KEY as a request parameter when viewing in a browser: `?apiKey=xxx`
+
+### Example
+
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::EmailControllerApi.new
+email_id = 'email_id_example' # String | emailId
+opts = {
+  decode: false # Boolean | decode
+}
+
+begin
+  #Get email content as HTML
+  result = api_instance.get_email_html(email_id, opts)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling EmailControllerApi->get_email_html: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email_id** | [**String**](.md)| emailId | 
+ **decode** | **Boolean**| decode | [optional] [default to false]
+
+### Return type
+
+**String**
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: text/html
+
+
 ## get_emails_paginated
 
 > PageEmailProjection get_emails_paginated(opts)
 
 Get all emails
 
-Responses are paginated
+By default returns all emails across all inboxes sorted by ascending created at date. Responses are paginated. You can restrict results to a list of inbox IDs. You can also filter out read messages
 
 ### Example
 
@@ -421,11 +486,11 @@ end
 
 api_instance = MailSlurpClient::EmailControllerApi.new
 opts = {
-  inbox_id: ['inbox_id_example'], # Array<String> | Optional inbox ids to filter by. Can be repeated
+  inbox_id: ['inbox_id_example'], # Array<String> | Optional inbox ids to filter by. Can be repeated. By default will use all inboxes belonging to your account.
   page: 0, # Integer | Optional page index in email list pagination
   size: 20, # Integer | Optional page size in email list pagination
   sort: 'ASC', # String | Optional createdAt sort direction ASC or DESC
-  unread_only: false # Boolean | Optional filter for unread emails only
+  unread_only: false # Boolean | Optional filter for unread emails only. All emails are considered unread until they are viewed in the dashboard or requested directly
 }
 
 begin
@@ -442,11 +507,11 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inbox_id** | [**Array&lt;String&gt;**](String.md)| Optional inbox ids to filter by. Can be repeated | [optional] 
+ **inbox_id** | [**Array&lt;String&gt;**](String.md)| Optional inbox ids to filter by. Can be repeated. By default will use all inboxes belonging to your account. | [optional] 
  **page** | **Integer**| Optional page index in email list pagination | [optional] [default to 0]
  **size** | **Integer**| Optional page size in email list pagination | [optional] [default to 20]
  **sort** | **String**| Optional createdAt sort direction ASC or DESC | [optional] [default to &#39;ASC&#39;]
- **unread_only** | **Boolean**| Optional filter for unread emails only | [optional] [default to false]
+ **unread_only** | **Boolean**| Optional filter for unread emails only. All emails are considered unread until they are viewed in the dashboard or requested directly | [optional] [default to false]
 
 ### Return type
 
@@ -466,9 +531,9 @@ Name | Type | Description  | Notes
 
 > String get_raw_email_contents(email_id)
 
-Get Raw Email Content
+Get raw email string
 
-Returns a raw, unparsed and unprocessed email
+Returns a raw, unparsed, and unprocessed email. If your client has issues processing the response it is likely due to the response content-type which is text/plain. If you need a JSON response content-type use the getRawEmailJson endpoint
 
 ### Example
 
@@ -487,7 +552,7 @@ api_instance = MailSlurpClient::EmailControllerApi.new
 email_id = 'email_id_example' # String | emailId
 
 begin
-  #Get Raw Email Content
+  #Get raw email string
   result = api_instance.get_raw_email_contents(email_id)
   p result
 rescue MailSlurpClient::ApiError => e
@@ -516,13 +581,117 @@ Name | Type | Description  | Notes
 - **Accept**: text/plain
 
 
+## get_raw_email_json
+
+> RawEmailJson get_raw_email_json(email_id)
+
+Get raw email in JSON
+
+Returns a raw, unparsed, and unprocessed email wrapped in a JSON response object for easier handling when compared with the getRawEmail text/plain response
+
+### Example
+
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::EmailControllerApi.new
+email_id = 'email_id_example' # String | emailId
+
+begin
+  #Get raw email in JSON
+  result = api_instance.get_raw_email_json(email_id)
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling EmailControllerApi->get_raw_email_json: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **email_id** | [**String**](.md)| emailId | 
+
+### Return type
+
+[**RawEmailJson**](RawEmailJson.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_unread_email_count
+
+> UnreadCount get_unread_email_count
+
+Get unread email count
+
+Get number of emails unread
+
+### Example
+
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::EmailControllerApi.new
+
+begin
+  #Get unread email count
+  result = api_instance.get_unread_email_count
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling EmailControllerApi->get_unread_email_count: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**UnreadCount**](UnreadCount.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
 ## validate_email
 
 > ValidationDto validate_email(email_id)
 
 Validate email
 
-Validate HTML content of email
+Validate the HTML content of email if HTML is found. Considered valid if no HTML.
 
 ### Example
 
