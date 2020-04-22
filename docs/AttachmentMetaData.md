@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content_length** | **Integer** |  | 
-**content_type** | **String** |  | 
-**id** | **String** |  | 
-**name** | **String** |  | 
+**content_length** | **Integer** | Size of attachment in bytes | [optional] 
+**content_type** | **String** | Content type of attachment | [optional] 
+**id** | **String** | ID of attachment | [optional] 
+**name** | **String** | Name of attachment | [optional] 
 
 ## Code Sample
 

@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**to** | **Array&lt;String&gt;** |  | 
-**subject** | **String** |  | [optional] 
-**cc** | **Array&lt;String&gt;** |  | [optional] 
-**bcc** | **Array&lt;String&gt;** |  | [optional] 
+**bcc** | **Array&lt;String&gt;** | Optional bcc recipients | [optional] 
+**cc** | **Array&lt;String&gt;** | Optional cc recipients | [optional] 
+**subject** | **String** | Subject for forwarded email | [optional] 
+**to** | **Array&lt;String&gt;** | To recipients for forwarded email | [optional] 
 
 ## Code Sample
 
 ```ruby
 require 'MailSlurpClient'
 
-instance = MailSlurpClient::ForwardEmailOptions.new(to: null,
-                                 subject: null,
+instance = MailSlurpClient::ForwardEmailOptions.new(bcc: null,
                                  cc: null,
-                                 bcc: null)
+                                 subject: null,
+                                 to: null)
 ```
 
 

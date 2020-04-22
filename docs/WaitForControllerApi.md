@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 Fetch inbox's latest email or if empty wait for an email to arrive
 
-Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox see the other receive methods such as waitForNthEmail or waitForEmailCount.
+Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox set `unreadOnly=true` or see the other receive methods such as `waitForNthEmail` or `waitForEmailCount`.
 
 ### Example
 
@@ -155,7 +155,7 @@ api_instance = MailSlurpClient::WaitForControllerApi.new
 opts = {
   inbox_id: 'inbox_id_example', # String | Id of the inbox we are fetching emails from
   timeout: 56, # Integer | Max milliseconds to wait
-  unread_only: false # Boolean | Optional filter for unread only
+  unread_only: false # Boolean | Optional filter for unread only.
 }
 
 begin
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **inbox_id** | [**String**](.md)| Id of the inbox we are fetching emails from | [optional] 
  **timeout** | **Integer**| Max milliseconds to wait | [optional] 
- **unread_only** | **Boolean**| Optional filter for unread only | [optional] [default to false]
+ **unread_only** | **Boolean**| Optional filter for unread only. | [optional] [default to false]
 
 ### Return type
 

@@ -4,9 +4,10 @@ All URIs are relative to *https://api.mailslurp.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_new_email_address**](CommonActionsControllerApi.md#create_new_email_address) | **POST** /newEmailAddress | Create new random inbox
+[**create_new_email_address**](CommonActionsControllerApi.md#create_new_email_address) | **POST** /createInbox | Create new random inbox
+[**create_new_email_address1**](CommonActionsControllerApi.md#create_new_email_address1) | **POST** /newEmailAddress | Create new random inbox
 [**empty_inbox**](CommonActionsControllerApi.md#empty_inbox) | **DELETE** /emptyInbox | Delete all emails in an inbox
-[**send_email_simple**](CommonActionsControllerApi.md#send_email_simple) | **POST** /sendEmail | Send an email from a random email address
+[**send_email_simple**](CommonActionsControllerApi.md#send_email_simple) | **POST** /sendEmail | Send an email
 
 
 
@@ -39,6 +40,56 @@ begin
   p result
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling CommonActionsControllerApi->create_new_email_address: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Inbox**](Inbox.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## create_new_email_address1
+
+> Inbox create_new_email_address1
+
+Create new random inbox
+
+Returns an Inbox with an `id` and an `emailAddress`
+
+### Example
+
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::CommonActionsControllerApi.new
+
+begin
+  #Create new random inbox
+  result = api_instance.create_new_email_address1
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling CommonActionsControllerApi->create_new_email_address1: #{e}"
 end
 ```
 
@@ -115,11 +166,11 @@ nil (empty response body)
 
 ## send_email_simple
 
-> send_email_simple(send_email_options)
+> send_email_simple(email_options)
 
-Send an email from a random email address
+Send an email
 
-To specify an email address first create an inbox and use that with the other send email methods
+If no senderId or inboxId provided a random email address will be used to send from.
 
 ### Example
 
@@ -135,11 +186,11 @@ MailSlurpClient.configure do |config|
 end
 
 api_instance = MailSlurpClient::CommonActionsControllerApi.new
-send_email_options = MailSlurpClient::SendEmailOptions.new # SendEmailOptions | sendEmailOptions
+email_options = MailSlurpClient::SimpleSendEmailOptions.new # SimpleSendEmailOptions | emailOptions
 
 begin
-  #Send an email from a random email address
-  api_instance.send_email_simple(send_email_options)
+  #Send an email
+  api_instance.send_email_simple(email_options)
 rescue MailSlurpClient::ApiError => e
   puts "Exception when calling CommonActionsControllerApi->send_email_simple: #{e}"
 end
@@ -150,7 +201,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **send_email_options** | [**SendEmailOptions**](SendEmailOptions.md)| sendEmailOptions | 
+ **email_options** | [**SimpleSendEmailOptions**](SimpleSendEmailOptions.md)| emailOptions | 
 
 ### Return type
 

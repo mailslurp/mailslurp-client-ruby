@@ -88,7 +88,8 @@ api_instance = MailSlurpClient::AttachmentControllerApi.new
 file = File.new('/path/to/file') # File | file
 opts = {
   content_type: 'content_type_example', # String | contentType
-  filename: 'filename_example' # String | filename
+  filename: 'filename_example', # String | filename
+  x_filename: 'x_filename_example' # String | x-filename
 }
 
 begin
@@ -108,6 +109,7 @@ Name | Type | Description  | Notes
  **file** | **File**| file | 
  **content_type** | **String**| contentType | [optional] 
  **filename** | **String**| filename | [optional] 
+ **x_filename** | **String**| x-filename | [optional] 
 
 ### Return type
 

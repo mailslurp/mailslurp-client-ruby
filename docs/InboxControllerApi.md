@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**get_emails**](InboxControllerApi.md#get_emails) | **GET** /inboxes/{inboxId}/emails | Get emails in an Inbox
 [**get_inbox**](InboxControllerApi.md#get_inbox) | **GET** /inboxes/{inboxId} | Get Inbox
 [**get_inbox_emails_paginated**](InboxControllerApi.md#get_inbox_emails_paginated) | **GET** /inboxes/{inboxId}/emails/paginated | Get inbox emails paginated
+[**get_inbox_tags**](InboxControllerApi.md#get_inbox_tags) | **GET** /inboxes/tags | Get inbox tags
 [**get_inboxes**](InboxControllerApi.md#get_inboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 [**send_email**](InboxControllerApi.md#send_email) | **POST** /inboxes/{inboxId} | Send Email
 [**set_inbox_favourited**](InboxControllerApi.md#set_inbox_favourited) | **PUT** /inboxes/{inboxId}/favourite | Set inbox favourited state
@@ -213,7 +214,8 @@ opts = {
   page: 0, # Integer | Optional page index in inbox list pagination
   search: 'search_example', # String | Optionally filter by search words partial matching ID, tags, name, and email address
   size: 20, # Integer | Optional page size in inbox list pagination
-  sort: 'ASC' # String | Optional createdAt sort direction ASC or DESC
+  sort: 'ASC', # String | Optional createdAt sort direction ASC or DESC
+  tag: 'tag_example' # String | Optionally filter by tags
 }
 
 begin
@@ -235,6 +237,7 @@ Name | Type | Description  | Notes
  **search** | **String**| Optionally filter by search words partial matching ID, tags, name, and email address | [optional] 
  **size** | **Integer**| Optional page size in inbox list pagination | [optional] [default to 20]
  **sort** | **String**| Optional createdAt sort direction ASC or DESC | [optional] [default to &#39;ASC&#39;]
+ **tag** | **String**| Optionally filter by tags | [optional] 
 
 ### Return type
 
@@ -421,6 +424,56 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PageEmailPreview**](PageEmailPreview.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## get_inbox_tags
+
+> Array&lt;String&gt; get_inbox_tags
+
+Get inbox tags
+
+Get all inbox tags
+
+### Example
+
+```ruby
+# load the gem
+require 'mailslurp_client'
+# setup authorization
+MailSlurpClient.configure do |config|
+  # Configure API key authorization: API_KEY
+  config.api_key['x-api-key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-api-key'] = 'Bearer'
+end
+
+api_instance = MailSlurpClient::InboxControllerApi.new
+
+begin
+  #Get inbox tags
+  result = api_instance.get_inbox_tags
+  p result
+rescue MailSlurpClient::ApiError => e
+  puts "Exception when calling InboxControllerApi->get_inbox_tags: #{e}"
+end
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Array&lt;String&gt;**
 
 ### Authorization
 

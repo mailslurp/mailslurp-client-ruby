@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**email_id** | **String** |  | 
-**html** | [**HTMLValidationResult**](HTMLValidationResult.md) |  | 
+**email_id** | **String** | ID of the email validated | [optional] 
+**html** | [**HTMLValidationResult**](HTMLValidationResult.md) |  | [optional] 
 
 ## Code Sample
 

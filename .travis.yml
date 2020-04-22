@@ -8,4 +8,4 @@ script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build mailslurp_client.gemspec
-  - gem install ./mailslurp_client-7.0.7.gem
+  - gem install ./mailslurp_client-7.0.8.gem
