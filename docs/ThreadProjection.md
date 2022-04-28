@@ -1,0 +1,37 @@
+# MailSlurpClient::ThreadProjection
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**name** | **String** |  | [optional] 
+**id** | **String** |  | 
+**subject** | **String** |  | [optional] 
+**user_id** | **String** |  | 
+**inbox_id** | **String** |  | 
+**to** | **Array&lt;String&gt;** |  | 
+**updated_at** | **DateTime** |  | 
+**bcc** | **Array&lt;String&gt;** |  | [optional] 
+**cc** | **Array&lt;String&gt;** |  | [optional] 
+**created_at** | **DateTime** |  | 
+**alias_id** | **String** |  | 
+
+## Code Sample
+
+```ruby
+require 'MailSlurpClient'
+
+instance = MailSlurpClient::ThreadProjection.new(name: null,
+                                 id: null,
+                                 subject: null,
+                                 user_id: null,
+                                 inbox_id: null,
+                                 to: null,
+                                 updated_at: null,
+                                 bcc: null,
+                                 cc: null,
+                                 created_at: null,
+                                 alias_id: null)
+```
+
+
