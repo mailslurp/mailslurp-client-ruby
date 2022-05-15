@@ -1,0 +1,25 @@
+# MailSlurpClient::BounceRecipient
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **String** |  | 
+**user_id** | **String** |  | [optional] 
+**recipient** | **String** |  | 
+**created_at** | **DateTime** |  | 
+**updated_at** | **DateTime** |  | 
+
+## Code Sample
+
+```ruby
+require 'MailSlurpClient'
+
+instance = MailSlurpClient::BounceRecipient.new(id: null,
+                                 user_id: null,
+                                 recipient: null,
+                                 created_at: null,
+                                 updated_at: null)
+```
+
+
