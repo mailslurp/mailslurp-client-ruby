@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-MailSlurp+Ruby+Client">MailSlurp Ruby Client</h1>
+
+<blockquote>
+<p>Create real email addresses on demand. Send and receive emails and attachments from code and tests using Ruby.</p>
+</blockquote>
+
+<p>MailSlurp is an email API service that lets you create real email addresses in code. You can then send and receive emails and attachments in Ruby applications and tests.</p>
+
+<p><a href="https://youtu.be/NEIIrU1E3H8"><img src="https://www.mailslurp.com/video-thumbnails/ruby-tutorial.jpg"></a></p>
+
+<h2 id="label-Quick+links">Quick links</h2>
+<ul><li>
+<p><a href="https://docs.mailslurp.com/api/">API documentation</a></p>
+</li><li>
+<p><a href="https://ruby.mailslurp.com/">Method Documentation</a></p>
+</li><li>
+<p><a href="https://rubygems.org/gems/mailslurp_client">Gem Package</a></p>
+</li><li>
+<p><a href="https://github.com/mailslurp/mailslurp-client-ruby">Github Source</a></p>
+</li><li>
+<p><a href="https://www.mailslurp.com/guides/smtp-imap/">SMTP access details</a></p>
+</li><li>
+<p><a href="https://www.mailslurp.com/smtp/ruby-send-email-smtp/">Send email in Ruby with SMTP</a></p>
+</li></ul>
+
+<h3 id="label-Common+controllers">Common controllers</h3>
+<ul><li>
+<p><a href="https://ruby.mailslurp.com/MailSlurpClient/EmailControllerApi.html">Email controller</a> send and receive emails</p>
+</li><li>
+<p><a href="https://ruby.mailslurp.com/MailSlurpClient/InboxControllerApi.html">Inbox controller</a> create and manage email addresses</p>
+</li><li>
+<p><a href="https://ruby.mailslurp.com/MailSlurpClient/WaitForControllerApi.html">WaitFor controller</a> wait for expected emails to arrive</p>
+</li></ul>
+
+<h3 id="label-Example+tutorials">Example tutorials</h3>
+
+<h2 id="label-Get+started">Get started</h2>
+
+<p>This section describes how to get up and running with the Ruby client.</p>
+
+<p>See the <a href="https://www.mailslurp.com/examples/">examples page</a> for more examples and use with common frameworks such as Rails and RSpec.</p>
+
+<p>See the method documentation for a <a href="https://ruby.mailslurp.com/">list of all functions</a></p>
+
+<h3 id="label-Create+API+Key">Create API Key</h3>
+
+<p>First you&#39;ll need an API Key. <a href="https://app.mailslurp.com">Create a free account</a> and copy the key from your dashboard.</p>
+
+<h3 id="label-Ruby+requirements">Ruby requirements</h3>
+
+<p>The MailSlurp client requires Ruby 2.x or 3.x and the ruby-dev package. You most likely have these packages but if not:</p>
+
+<p><code>sudo apt-get install ruby-dev</code></p>
+
+<h3 id="label-Install+Gem">Install Gem</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_mailslurp_client'>mailslurp_client</span>
+</code></pre>
+
+<p>Or in your <code>Gemfile</code>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_source'>source</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://rubygems.org</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mailslurp_client</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>typhoeus</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>And then run bundler install:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='id identifier rubyid_install'>install</span> <span class='id identifier rubyid_bundler'>bundler</span>
+<span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<h4 id="label-Libcurl+requirements">Libcurl requirements</h4>
+
+<p>You may need to install <code>typhoeus</code> if you encounter libcurl errors.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>typhoeus</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<h3 id="label-Configure+the+client">Configure the client</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mailslurp_client</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="MailSlurpClient.html#configure-class_method" title="MailSlurpClient.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_api_key'>api_key</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>x-api-key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>API_KEY</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Create+controllers">Create controllers</h3>
+
+<p>To call the API create a controller like this:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+</code></pre>
+
+<h2 id="label-Common+uses">Common uses</h2>
+
+<p>MailSlurp can be used for anything email related: sending and receiving emails, creating email addresses, or testing email processes.</p>
+
+<p>Here are some common uses:</p>
+
+<h3 id="label-Create+inboxes">Create inboxes</h3>
+
+<p>To use MailSlurp you need to create inboxes. These are email accounts that have an ID and a real email address. See methods on the <a href="https://ruby.mailslurp.com/MailSlurpClient/InboxControllerApi.html">inbox controller</a> for more information.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>My test inbox</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>inboxType:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SMTP_INBOX</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_inbox'>inbox</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox_with_options'>create_inbox_with_options</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_assert_match'>assert_match</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>@mailslurp</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span>
+</code></pre>
+
+<p>In a test:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can create email addresses</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+    <span class='id identifier rubyid_inbox'>inbox</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_not_to'>not_to</span> <span class='id identifier rubyid_be_nil'>be_nil</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mailslurp.com</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h4 id="label-More+options">More options</h4>
+
+<p>The <code>create_inbox</code> method has some limitations in the Ruby client. To create inboxes with more options use the alternative <code>create_inbox_with_options</code> method. (This uses a request body instead of query parameters.)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can an inbox with tags</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+    <span class='comment'># create an inbox with tags
+</span>    <span class='id identifier rubyid_inbox'>inbox</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox_with_options'>create_inbox_with_options</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+      <span class='label'>tags:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t1</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t2</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>description:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test with tags</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test name</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+    <span class='comment'># has tags
+</span>    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t1</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t2</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+    <span class='comment'># can update tags
+</span>    <span class='id identifier rubyid_inbox_updated'>inbox_updated</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_update_inbox'>update_inbox</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='lbrace'>{</span>
+      <span class='label'>tags:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>newtag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox_updated'>inbox_updated</span><span class='period'>.</span><span class='id identifier rubyid_tags'>tags</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>newtag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h4 id="label-Inbox+types">Inbox types</h4>
+
+<p>Inboxes can be either <code>SMTP</code> or <code>HTTP</code> type. Set the inbox type using the <code>inboxType</code> property. SMTP inboxes are handled by a custom mailserver and support a wide range of clients while HTTP inboxes use Amazon SES and don&#39;t support some older clients like Outlook. SMTP inboxes are recommended for public facing email addresses while HTTP inboxes are best for application testing. Please see the guide on <a href="https://www.mailslurp.com/guides/smtp-vs-http-email-inboxes/">types of inboxes</a> for more information.</p>
+
+<h3 id="label-Configure+NET-2FSMTP+access">Configure NET/SMTP access</h3>
+
+<p>SMTP type inboxes allow SMTP and IMAP access using unique host, port, password, and username. Use the <code>inbox_controller.get_imap_smtp_access</code> method to access SMTP credentials. Then configure <code>net/smtp</code> in Ruby to send email using SMTP.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can send email using SMTP</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+
+  <span class='comment'># create two inboxes
+</span>  <span class='id identifier rubyid_inbox1'>inbox1</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox_with_options'>create_inbox_with_options</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>inboxType:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>SMTP_INBOX</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_inbox2'>inbox2</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+
+  <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox1'>inbox1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>@mailslurp.mx</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+  <span class='comment'># get smtp access for inbox
+</span>  <span class='id identifier rubyid_smtp_access'>smtp_access</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_get_imap_smtp_access'>get_imap_smtp_access</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox1'>inbox1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+  <span class='comment'># compose email
+</span>  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;~MESSAGE_END</span>
+<span class='tstring_content'>    From: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_inbox1'>inbox1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+</span><span class='tstring_content'>    To: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_inbox2'>inbox2</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+</span><span class='tstring_content'>    Subject: Test smtp email
+</span><span class='tstring_content'>
+</span><span class='tstring_content'>    This is a test
+</span><span class='heredoc_end'>  MESSAGE_END
+</span>
+  <span class='comment'># configure SMTP with host port and &quot;PLAIN&quot; authentication
+</span>  <span class='const'>Net</span><span class='op'>::</span><span class='const'>SMTP</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span><span class='id identifier rubyid_smtp_access'>smtp_access</span><span class='period'>.</span><span class='id identifier rubyid_smtp_server_host'>smtp_server_host</span><span class='comma'>,</span> <span class='id identifier rubyid_smtp_access'>smtp_access</span><span class='period'>.</span><span class='id identifier rubyid_smtp_server_port'>smtp_server_port</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>greeting.your.domain</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+                  <span class='id identifier rubyid_smtp_access'>smtp_access</span><span class='period'>.</span><span class='id identifier rubyid_smtp_username'>smtp_username</span><span class='comma'>,</span> <span class='id identifier rubyid_smtp_access'>smtp_access</span><span class='period'>.</span><span class='id identifier rubyid_smtp_password'>smtp_password</span><span class='comma'>,</span> <span class='symbol'>:plain</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_smtp'>smtp</span><span class='op'>|</span>
+    <span class='comment'># send email
+</span>    <span class='id identifier rubyid_smtp'>smtp</span><span class='period'>.</span><span class='id identifier rubyid_send_message'>send_message</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_inbox1'>inbox1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='comma'>,</span> <span class='id identifier rubyid_inbox2'>inbox2</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># now confirm email was sent
+</span>  <span class='id identifier rubyid_wait_for_controller'>wait_for_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html" title="MailSlurpClient::WaitForControllerApi (class)">WaitForControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html#initialize-instance_method" title="MailSlurpClient::WaitForControllerApi#initialize (method)">new</a></span></span>
+  <span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_wait_for_controller'>wait_for_controller</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_latest_email'>wait_for_latest_email</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox2'>inbox2</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Test smtp email</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-List+inboxes">List inboxes</h3>
+
+<p>Inboxes you create can be listed in a paginated way using the <a href="https://ruby.mailslurp.com/MailSlurpClient/InboxControllerApi.html">InboxController</a>).</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can list inboxes</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+    <span class='id identifier rubyid_paged_inboxes'>paged_inboxes</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_get_all_inboxes'>get_all_inboxes</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>page:</span> <span class='int'>0</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='int'>20</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+    <span class='comment'># assert on pagination fields
+</span>    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_paged_inboxes'>paged_inboxes</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_not_to'>not_to</span> <span class='id identifier rubyid_be_empty'>be_empty</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_paged_inboxes'>paged_inboxes</span><span class='period'>.</span><span class='id identifier rubyid_number'>number</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be'>be</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_paged_inboxes'>paged_inboxes</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be'>be</span><span class='lparen'>(</span><span class='int'>20</span><span class='rparen'>)</span>
+
+    <span class='comment'># can access inbox result
+</span>    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_paged_inboxes'>paged_inboxes</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_not_to'>not_to</span> <span class='id identifier rubyid_be_empty'>be_empty</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Send+emails">Send emails</h3>
+
+<p>You can send HTML emails easily with the inbox controller. First create an inbox then use its ID with the <code>send_email</code> method.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_send_email'>send_email</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='lbrace'>{</span>
+  <span class='label'>to:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Welcome. Your code is: 123456</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>To send attachments see the <a href="https://ruby.mailslurp.com/">Method Documentation</a>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># create an inbox
+</span><span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_inbox'>inbox</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+
+<span class='comment'># send an email from the inbox
+</span><span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_send_email'>send_email</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='lbrace'>{</span>
+    <span class='label'>send_email_options:</span> <span class='lbrace'>{</span>
+        <span class='label'>to:</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test@example.org</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Test</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>isHTML:</span> <span class='kw'>true</span><span class='comma'>,</span>
+        <span class='label'>body:</span> <span class='heredoc_beg'>&lt;&lt;-HEREDOC</span>
+<span class='tstring_content'>          &lt;h1&gt;Hello!&lt;/h1&gt;
+          &lt;p&gt;MailSlurp supports HTML&lt;/p&gt;
+</span><span class='heredoc_end'>        HEREDOC
+</span>    <span class='rbrace'>}</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>You can also use objects for most <a href="https://ruby.mailslurp.com/MailSlurpClient/SendEmailOptions.html">method options</a>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>send_email_options:</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html" title="MailSlurpClient::SendEmailOptions (class)">SendEmailOptions</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html#initialize-instance_method" title="MailSlurpClient::SendEmailOptions#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='lbrace'>{</span>
+      <span class='label'>to:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>from:</span> <span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='comma'>,</span>
+      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>is_html:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>attachments:</span> <span class='id identifier rubyid_attachment_ids'>attachment_ids</span>
+    <span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_send_email'>send_email</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+</code></pre>
+
+<h3 id="label-Send+with+SMTP">Send with SMTP</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>net/smtp</span><span class='tstring_end'>&#39;</span></span>
+    <span class='id identifier rubyid_access_details'>access_details</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_get_imap_smtp_access'>get_imap_smtp_access</span><span class='lparen'>(</span><span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+    <span class='const'>Net</span><span class='op'>::</span><span class='const'>SMTP</span><span class='period'>.</span><span class='id identifier rubyid_start'>start</span><span class='lparen'>(</span>
+      <span class='id identifier rubyid_address'>address</span><span class='op'>=</span> <span class='id identifier rubyid_access_details'>access_details</span><span class='period'>.</span><span class='id identifier rubyid_secure_smtp_server_host'>secure_smtp_server_host</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_port'>port</span><span class='op'>=</span> <span class='id identifier rubyid_access_details'>access_details</span><span class='period'>.</span><span class='id identifier rubyid_secure_smtp_server_port'>secure_smtp_server_port</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_helo'>helo</span><span class='op'>=</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>@(.+)</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_user'>user</span><span class='op'>=</span> <span class='id identifier rubyid_access_details'>access_details</span><span class='period'>.</span><span class='id identifier rubyid_secure_smtp_username'>secure_smtp_username</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_secret'>secret</span><span class='op'>=</span> <span class='id identifier rubyid_access_details'>access_details</span><span class='period'>.</span><span class='id identifier rubyid_secure_smtp_password'>secure_smtp_password</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_authtype'>authtype</span><span class='op'>=</span> <span class='symbol'>:plain</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_smtp'>smtp</span><span class='op'>|</span>
+      <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='heredoc_beg'>&lt;&lt;EOF</span>
+<span class='tstring_content'>Subject: SMTP test
+
+This is my body
+</span><span class='heredoc_end'>EOF
+</span>      <span class='id identifier rubyid_smtp'>smtp</span><span class='period'>.</span><span class='id identifier rubyid_send_message'>send_message</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='comma'>,</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span>
+      <span class='id identifier rubyid_smtp'>smtp</span><span class='period'>.</span><span class='id identifier rubyid_finish'>finish</span>
+    <span class='kw'>end</span>
+</code></pre>
+
+<h3 id="label-Receive+emails">Receive emails</h3>
+
+<p>To read already existing emails use the <a href="https://ruby.mailslurp.com/MailSlurpClient/EmailControllerApi.html">Email Controller</a>. To wait for expected emails to arrive use the <a href="https://ruby.mailslurp.com/MailSlurpClient/WaitForControllerApi.html">WaitFor Controller</a>. You can use MailSlurp to wait for at least 1 unread email in an inbox and return it. If a timeout is exceeded it will throw an error instead:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_wait_for_controller'>wait_for_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html" title="MailSlurpClient::WaitForControllerApi (class)">WaitForControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html#initialize-instance_method" title="MailSlurpClient::WaitForControllerApi#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_wait_options'>wait_options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+  <span class='label'>timeout:</span> <span class='int'>120000</span><span class='comma'>,</span>
+  <span class='label'>unread_only:</span> <span class='kw'>true</span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_wait_for_controller'>wait_for_controller</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_latest_email'>wait_for_latest_email</span><span class='lparen'>(</span><span class='id identifier rubyid_wait_options'>wait_options</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_assert_match'>assert_match</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Welcome</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+</code></pre>
+
+<h3 id="label-Extract+email+content">Extract email content</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Your code is: ([0-9]{6})</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_assert_equal'>assert_equal</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>123456</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>To parse an email and extract content use regex patterns like so:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_wait_controller'>wait_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html" title="MailSlurpClient::WaitForControllerApi (class)">WaitForControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html#initialize-instance_method" title="MailSlurpClient::WaitForControllerApi#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_wait_controller'>wait_controller</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_latest_email'>wait_for_latest_email</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='label'>unread_only:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>30_000</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># assert the email is a confirmation 
+</span><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Please confirm your email address</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># extract a 6 digit code from the email body
+</span><span class='id identifier rubyid_match'>match</span> <span class='op'>=</span> <span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>code is ([0-9]{6})</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+<span class='kw'>if</span> <span class='id identifier rubyid_match'>match</span> <span class='op'>==</span> <span class='kw'>nil</span> <span class='kw'>then</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Could not find match in body </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span> 
+<span class='id identifier rubyid_code'>code</span><span class='comma'>,</span> <span class='op'>*</span> <span class='op'>=</span> <span class='id identifier rubyid_match'>match</span><span class='period'>.</span><span class='id identifier rubyid_captures'>captures</span>
+</code></pre>
+
+<h3 id="label-Attachments">Attachments</h3>
+
+<p>You can send attachments by first uploading files with the <a href="https://ruby.mailslurp.com/MailSlurpClient/AttachmentControllerApi.html">AttachmentControllerApi</a> then using the returned attachment IDs in the send email method.</p>
+
+<p>MailSlurp endpoints use base64 string encoding for upload and download files. To encode or decode strings in Ruby make sure you use the <strong>strict</strong> variables that avoid added newlines.</p>
+
+<h4 id="label-Upload+and+send">Upload and send</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># upload a file to mailslurp to use as attachment
+</span><span class='comment'># @return [Array&lt;String&gt;]
+</span><span class='kw'>def</span> <span class='id identifier rubyid_upload_file'>upload_file</span>
+<span class='comment'># read a file to upload
+</span><span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='const'>PATH_TO_ATTACHMENT</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
+
+<span class='comment'># encode the data as base64 string (must be strict to avoid ruby adding new line characters)
+</span><span class='id identifier rubyid_encoded'>encoded</span> <span class='op'>=</span> <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_encode64'>strict_encode64</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_attachment_controller'>attachment_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/AttachmentControllerApi.html" title="MailSlurpClient::AttachmentControllerApi (class)">AttachmentControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/AttachmentControllerApi.html#initialize-instance_method" title="MailSlurpClient::AttachmentControllerApi#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_upload_options'>upload_options</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/UploadAttachmentOptions.html" title="MailSlurpClient::UploadAttachmentOptions (class)">UploadAttachmentOptions</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/UploadAttachmentOptions.html#initialize-instance_method" title="MailSlurpClient::UploadAttachmentOptions#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>base64_contents:</span> <span class='id identifier rubyid_encoded'>encoded</span><span class='comma'>,</span>
+    <span class='label'>content_type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/plain</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='label'>filename:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>attachment.txt</span><span class='tstring_end'>&#39;</span></span>
+  <span class='rbrace'>}</span>
+<span class='rparen'>)</span>
+
+<span class='comment'># return list of attachment ids
+</span><span class='id identifier rubyid_attachment_controller'>attachment_controller</span><span class='period'>.</span><span class='id identifier rubyid_upload_attachment'>upload_attachment</span><span class='lparen'>(</span><span class='id identifier rubyid_upload_options'>upload_options</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>To send attachments</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_attachment_ids'>attachment_ids</span> <span class='op'>=</span> <span class='id identifier rubyid_upload_file'>upload_file</span>
+
+<span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>send_email_options:</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html" title="MailSlurpClient::SendEmailOptions (class)">SendEmailOptions</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html#initialize-instance_method" title="MailSlurpClient::SendEmailOptions#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+    <span class='lbrace'>{</span>
+      <span class='label'>to:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>from:</span> <span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='comma'>,</span>
+      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>is_html:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>attachments:</span> <span class='id identifier rubyid_attachment_ids'>attachment_ids</span>
+    <span class='rbrace'>}</span>
+  <span class='rparen'>)</span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_send_email'>send_email</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+</code></pre>
+
+<h4 id="label-Download+received+attachments">Download received attachments</h4>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># wait for the email to arrive (or fetch directly using email controller if you know it is there)
+</span><span class='id identifier rubyid_wait_opts'>wait_opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+  <span class='label'>timeout:</span> <span class='int'>30_000</span><span class='comma'>,</span>
+  <span class='label'>unread_only:</span> <span class='kw'>true</span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_wait_controller'>wait_controller</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_latest_email'>wait_for_latest_email</span><span class='lparen'>(</span><span class='id identifier rubyid_wait_opts'>wait_opts</span><span class='rparen'>)</span>
+
+<span class='comment'># find the attachments on the email object
+</span><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_attachments'>attachments</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be'>be</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+
+<span class='comment'># download the attachment as base64 (easier than byte arrays for ruby client)
+</span><span class='id identifier rubyid_email_controller'>email_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/EmailControllerApi.html" title="MailSlurpClient::EmailControllerApi (class)">EmailControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/EmailControllerApi.html#initialize-instance_method" title="MailSlurpClient::EmailControllerApi#initialize (method)">new</a></span></span>
+<span class='id identifier rubyid_downloaded_attachment'>downloaded_attachment</span> <span class='op'>=</span> <span class='id identifier rubyid_email_controller'>email_controller</span><span class='period'>.</span><span class='id identifier rubyid_download_attachment_base64'>download_attachment_base64</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_attachments'>attachments</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+
+<span class='comment'># extract attachment content
+</span><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_downloaded_attachment'>downloaded_attachment</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>text/plain</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_downloaded_attachment'>downloaded_attachment</span><span class='period'>.</span><span class='id identifier rubyid_size_bytes'>size_bytes</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_downloaded_attachment'>downloaded_attachment</span><span class='period'>.</span><span class='id identifier rubyid_base64_file_contents'>base64_file_contents</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+</code></pre>
+
+<h2 id="label-Examples">Examples</h2>
+
+<h3 id="label-Send+email+between+two+inboxes">Send email between two inboxes</h3>
+
+<p>It is common to use MailSlurp in test environments. Here is an example RSpec test:</p>
+
+<pre class="code ruby"><code class="ruby">
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mailslurp_client</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># read mailslurp api key from environment variables
+</span><span class='const'>API_KEY</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>API_KEY</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+
+<span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>use MailSlurp ruby sdk to create email addresses then send and receive email</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_before'>before</span><span class='lparen'>(</span><span class='symbol'>:all</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='const'>API_KEY</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+
+    <span class='comment'># configure mailslurp with API key
+</span>    <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='period'>.</span><span class='id identifier rubyid_configure'><span class='object_link'><a href="MailSlurpClient.html#configure-class_method" title="MailSlurpClient.configure (method)">configure</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+      <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_api_key'>api_key</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>x-api-key</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>API_KEY</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can an inbox with an email address</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='comment'># create a new email address
+</span>    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+    <span class='id identifier rubyid_inbox'>inbox</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+
+    <span class='comment'># has a mailslurp email address
+</span>    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox'>inbox</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>@mailslurp.com</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_it'>it</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>can send and receive emails</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html" title="MailSlurpClient::InboxControllerApi (class)">InboxControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/InboxControllerApi.html#initialize-instance_method" title="MailSlurpClient::InboxControllerApi#initialize (method)">new</a></span></span>
+    <span class='id identifier rubyid_wait_controller'>wait_controller</span>  <span class='op'>=</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html" title="MailSlurpClient::WaitForControllerApi (class)">WaitForControllerApi</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/WaitForControllerApi.html#initialize-instance_method" title="MailSlurpClient::WaitForControllerApi#initialize (method)">new</a></span></span>
+
+    <span class='comment'># create two inboxes
+</span>    <span class='id identifier rubyid_inbox_1'>inbox_1</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+    <span class='id identifier rubyid_inbox_2'>inbox_2</span> <span class='op'>=</span> <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_create_inbox'>create_inbox</span>
+
+    <span class='comment'># send email from inbox 1 to inbox 2 (you can send emails to any address)
+</span>    <span class='comment'># for send options see https://ruby.mailslurp.com/MailSlurpClient/SendEmailOptions.html
+</span>    <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+      <span class='label'>send_email_options:</span> <span class='const'><span class='object_link'><a href="MailSlurpClient.html" title="MailSlurpClient (module)">MailSlurpClient</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html" title="MailSlurpClient::SendEmailOptions (class)">SendEmailOptions</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="MailSlurpClient/SendEmailOptions.html#initialize-instance_method" title="MailSlurpClient::SendEmailOptions#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+        <span class='lbrace'>{</span>
+          <span class='label'>to:</span> <span class='lbracket'>[</span><span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='rbracket'>]</span><span class='comma'>,</span>
+          <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>from:</span> <span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_email_address'>email_address</span><span class='comma'>,</span>
+          <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>is_html:</span> <span class='kw'>true</span>
+        <span class='rbrace'>}</span>
+      <span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_inbox_controller'>inbox_controller</span><span class='period'>.</span><span class='id identifier rubyid_send_email'>send_email</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox_1'>inbox_1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_opts'>opts</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_be_truthy'>be_truthy</span>
+
+    <span class='comment'># now wait for the email to arrive
+</span>    <span class='id identifier rubyid_wait_opts'>wait_opts</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+      <span class='label'>inbox_id:</span> <span class='id identifier rubyid_inbox_2'>inbox_2</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+      <span class='label'>timeout:</span> <span class='int'>30_000</span><span class='comma'>,</span>
+      <span class='label'>unread_only:</span> <span class='kw'>true</span>
+    <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_wait_controller'>wait_controller</span><span class='period'>.</span><span class='id identifier rubyid_wait_for_latest_email'>wait_for_latest_email</span><span class='lparen'>(</span><span class='id identifier rubyid_wait_opts'>wait_opts</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Test email content</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h2 id="label-SDK+Documentation">SDK Documentation</h2>
+
+<p>See the <a href="https://www.mailslurp.com/examples/">examples page</a> or the full <a href="https://ruby.mailslurp.com/">Method Documentation</a> on Github.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Fri May  3 02:16:49 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.7.1).
+</div>
+
+    </div>
+  </body>
+</html>
