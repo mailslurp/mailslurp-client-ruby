@@ -398,7 +398,7 @@ expect(email.attachments.size).to be(1)
 
 # download the attachment as base64 (easier than byte arrays for ruby client)
 email_controller = MailSlurpClient::EmailControllerApi.new
-downloaded_attachment = email_controller.download_attachment_base64(email.attachments[0], email.id)
+downloaded_attachment = email_controller.download_attachment_base64(email.id, email.attachments[0])
 
 # extract attachment content
 expect(downloaded_attachment.content_type).to eq("text/plain")
